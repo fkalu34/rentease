@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RentEase — Live in Your Home Today</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:       #0D1B2A;
+    --cream:     #F7F3EE;
+    --green:     #1A6B4A;
+    --green-mid: #2D9B68;
+    --green-lt:  #E8F5EE;
+    --gold:      #C8962A;
+    --gold-lt:   #FDF3DC;
+    --muted:     #6B7280;
+    --border:    rgba(13,27,42,0.10);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: .4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 5%;
+    background: rgba(247,243,238,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: padding .3s;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900; font-size: 1.6rem;
+    color: var(--green);
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--green);
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: 100px;
+    font-size: .875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background .2s, transform .2s;
+  }
+  .nav-cta:hover { background: var(--green-mid); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 5% 80px;
+    gap: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* big decorative circle */
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(45,155,104,0.12) 0%, transparent 70%);
+    right: -150px; top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold-lt);
+    color: var(--gold);
+    border: 1px solid rgba(200,150,42,0.25);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero-eyebrow::before { content: '●'; font-size: .5rem; }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 5vw, 4.2rem);
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+  }
+  .hero-title em {
+    font-style: normal;
+    color: var(--green);
+    position: relative;
+  }
+  .hero-title em::after {
+    display: none;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 40px;
+  }
+
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--green);
+    color: #fff;
+    padding: 16px 36px;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all .25s;
+    box-shadow: 0 8px 24px rgba(26,107,74,0.28);
+  }
+  .btn-primary:hover {
+    background: var(--green-mid);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(26,107,74,0.35);
+  }
+
+  .btn-ghost {
+    color: var(--ink);
+    padding: 16px 36px;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1.5px solid var(--border);
+    transition: all .25s;
+  }
+  .btn-ghost:hover { border-color: var(--green); color: var(--green); }
+
+  /* hero right — visual card stack */
+  .hero-visual {
+    position: relative;
+    height: 480px;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-12px); }
+  }
+
+  .card-stack {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .card-back {
+    position: absolute;
+    width: 88%; height: 360px;
+    background: var(--green);
+    border-radius: 24px;
+    top: 40px; right: 0;
+    transform: rotate(4deg);
+    opacity: .25;
+  }
+
+  .card-main {
+    position: absolute;
+    width: 90%; height: 380px;
+    background: linear-gradient(135deg, var(--ink) 0%, #1a3a5c 100%);
+    border-radius: 24px;
+    top: 20px; left: 0;
+    padding: 36px;
+    color: #fff;
+    box-shadow: 0 32px 80px rgba(13,27,42,0.35);
+    overflow: hidden;
+  }
+
+  .card-main::before {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(45,155,104,0.15);
+    top: -80px; right: -80px;
+  }
+
+  .card-chip {
+    width: 44px; height: 32px;
+    background: linear-gradient(135deg, var(--gold) 0%, #e8b84b 100%);
+    border-radius: 6px;
+    margin-bottom: 40px;
+    position: relative; z-index: 1;
+  }
+
+  .card-label {
+    font-size: .7rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .5;
+    margin-bottom: 6px;
+  }
+
+  .card-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .card-sub-label { font-size: .8rem; opacity: .55; margin-bottom: 36px; }
+
+  .card-progress-wrap {
+    background: rgba(255,255,255,0.12);
+    border-radius: 100px;
+    height: 6px;
+    margin-bottom: 10px;
+  }
+  .card-progress-bar {
+    background: linear-gradient(90deg, var(--gold), var(--green-mid));
+    border-radius: 100px;
+    height: 100%;
+    width: 65%;
+    animation: progress 3s ease-in-out infinite alternate;
+  }
+  @keyframes progress { from { width: 40%; } to { width: 75%; } }
+
+  .card-progress-label {
+    display: flex; justify-content: space-between;
+    font-size: .72rem; opacity: .55;
+  }
+
+  .card-name {
+    position: absolute;
+    bottom: 32px; left: 36px;
+    font-size: .85rem;
+    letter-spacing: .1em;
+    opacity: .7;
+  }
+
+  /* floating badge */
+  .badge-saved {
+    position: absolute;
+    bottom: 0; right: 20px;
+    background: var(--gold-lt);
+    border: 1px solid rgba(200,150,42,0.2);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  }
+  .badge-icon {
+    width: 40px; height: 40px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .badge-text { font-size: .8rem; font-weight: 600; color: var(--ink); }
+  .badge-text span { display: block; font-weight: 400; color: var(--muted); font-size: .72rem; }
+
+  /* ── TRUST BAR ── */
+  .trust-bar {
+    background: var(--green);
+    padding: 20px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .trust-item {
+    color: rgba(255,255,255,0.85);
+    font-size: .85rem;
+    font-weight: 500;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .trust-item::before {
+    content: '✓';
+    background: rgba(255,255,255,0.2);
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .7rem;
+    font-weight: 700;
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 100px 5%; }
+
+  .section-tag {
+    display: inline-block;
+    background: var(--green-lt);
+    color: var(--green);
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    line-height: 1.12;
+    letter-spacing: -.5px;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 520px;
+  }
+
+  /* ── PROBLEM SECTION ── */
+  .problem { background: var(--ink); color: #fff; }
+  .problem .section-tag { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); }
+  .problem .section-title { color: #fff; }
+  .problem .section-sub { color: rgba(255,255,255,0.55); }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    margin-top: 60px;
+  }
+
+  .problem-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+
+  .problem-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 20px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: background .2s;
+  }
+  .problem-item:hover { background: rgba(255,255,255,0.08); }
+
+  .problem-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: rgba(200,150,42,0.15);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .problem-item-title { font-weight: 600; margin-bottom: 4px; font-size: .95rem; }
+  .problem-item-text { color: rgba(255,255,255,0.5); font-size: .875rem; line-height: 1.6; }
+
+  .inflation-card {
+    background: linear-gradient(135deg, rgba(45,155,104,0.15), rgba(200,150,42,0.1));
+    border: 1px solid rgba(45,155,104,0.25);
+    border-radius: 24px;
+    padding: 40px;
+  }
+
+  .inflation-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #fff;
+  }
+
+  .inflation-text {
+    color: rgba(255,255,255,0.6);
+    font-size: .9rem;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  .inflation-stat {
+    display: flex; flex-direction: column; gap: 16px;
+  }
+
+  .stat-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+  .stat-label { font-size: .8rem; color: rgba(255,255,255,0.5); }
+  .stat-value { font-weight: 700; font-size: 1.1rem; }
+  .stat-value.red { color: #FF6B6B; }
+  .stat-value.green { color: var(--green-mid); }
+
+  /* ── HOW IT WORKS ── */
+  .how { background: var(--cream); }
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 60px;
+  }
+
+  .step-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 36px 28px;
+    border: 1px solid var(--border);
+    position: relative;
+    transition: transform .25s, box-shadow .25s;
+  }
+  .step-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 60px rgba(13,27,42,0.1);
+  }
+
+  .step-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--green-lt);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .step-icon {
+    width: 52px; height: 52px;
+    background: var(--green-lt);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+
+  .step-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 10px; }
+  .step-text { color: var(--muted); font-size: .875rem; line-height: 1.7; }
+
+  .step-connector {
+    position: absolute;
+    top: 50px; right: -16px;
+    width: 32px; height: 2px;
+    background: linear-gradient(90deg, var(--green-lt), transparent);
+    z-index: 1;
+  }
+
+  /* ── BENEFITS ── */
+  .benefits { background: #fff; }
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 60px;
+  }
+
+  .benefit-card {
+    padding: 32px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    transition: all .25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .benefit-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--green-lt);
+    opacity: 0;
+    transition: opacity .25s;
+  }
+  .benefit-card:hover::before { opacity: 1; }
+  .benefit-card:hover { border-color: var(--green); transform: translateY(-3px); }
+
+  .benefit-card > * { position: relative; z-index: 1; }
+
+  .benefit-icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .benefit-title { font-weight: 700; font-size: 1rem; margin-bottom: 8px; }
+  .benefit-text { color: var(--muted); font-size: .875rem; line-height: 1.65; }
+
+  .benefit-card.featured {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+    grid-column: span 2;
+  }
+  .benefit-card.featured::before { display: none; }
+  .benefit-card.featured .benefit-text { color: rgba(255,255,255,0.7); }
+  .benefit-card.featured .benefit-title { color: #fff; font-size: 1.2rem; }
+
+  .benefit-card.featured-inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 28px;
+    align-items: center;
+  }
+
+  .benefit-featured-icon {
+    width: 80px; height: 80px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  /* ── PRICING FEEL ── */
+  .plans { background: var(--cream); }
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 60px;
+  }
+
+  .plan-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 36px 28px;
+    border: 1.5px solid var(--border);
+    transition: all .25s;
+  }
+  .plan-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(13,27,42,0.1);
+  }
+  .plan-card.popular {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+    transform: scale(1.04);
+    box-shadow: 0 24px 70px rgba(26,107,74,0.3);
+  }
+  .plan-card.popular:hover { transform: scale(1.04) translateY(-4px); }
+
+  .plan-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: #fff;
+    font-size: .7rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 100px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .plan-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 8px; }
+  .plan-desc { font-size: .85rem; opacity: .6; margin-bottom: 28px; line-height: 1.6; }
+
+  .plan-feature {
+    display: flex; align-items: center; gap: 10px;
+    font-size: .875rem;
+    padding: 9px 0;
+    border-bottom: 1px solid rgba(13,27,42,0.06);
+  }
+  .plan-card.popular .plan-feature { border-bottom-color: rgba(255,255,255,0.1); }
+  .plan-feature:last-child { border-bottom: none; }
+  .plan-check { color: var(--green-mid); font-weight: 700; }
+  .plan-card.popular .plan-check { color: var(--gold); }
+
+  .plan-cta {
+    display: block;
+    text-align: center;
+    margin-top: 28px;
+    padding: 14px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: .9rem;
+    text-decoration: none;
+    transition: all .2s;
+  }
+  .plan-cta-outline {
+    border: 1.5px solid var(--border);
+    color: var(--ink);
+  }
+  .plan-cta-outline:hover { border-color: var(--green); color: var(--green); }
+  .plan-cta-solid {
+    background: #fff;
+    color: var(--green);
+  }
+  .plan-cta-solid:hover { background: var(--gold-lt); }
+
+  /* ── APPLICATION FORM ── */
+  .apply { background: var(--ink); color: #fff; }
+  .apply .section-title { color: #fff; }
+  .apply .section-sub { color: rgba(255,255,255,0.55); }
+
+  .form-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-top: 60px;
+    align-items: start;
+  }
+
+  .form-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 40px;
+  }
+
+  .form-group { margin-bottom: 20px; }
+  .form-label {
+    display: block;
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 8px;
+  }
+
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 14px 16px;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .95rem;
+    transition: border-color .2s, background .2s;
+    outline: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--green-mid);
+    background: rgba(255,255,255,0.1);
+  }
+  .form-input::placeholder { color: rgba(255,255,255,0.25); }
+  .form-select option { background: var(--ink); color: #fff; }
+  .form-textarea { resize: vertical; min-height: 100px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--green);
+    color: #fff;
+    border: none;
+    padding: 16px;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .25s;
+    box-shadow: 0 8px 24px rgba(26,107,74,0.3);
+    margin-top: 8px;
+  }
+  .submit-btn:hover {
+    background: var(--green-mid);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(26,107,74,0.4);
+  }
+
+  .form-promise {
+    text-align: center;
+    color: rgba(255,255,255,0.35);
+    font-size: .78rem;
+    margin-top: 16px;
+  }
+
+  /* right side of form */
+  .form-info { padding-top: 8px; }
+  .form-info-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .form-info-text {
+    color: rgba(255,255,255,0.55);
+    font-size: .95rem;
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+
+  .reassurance-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .reassurance-item {
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .reassurance-check {
+    width: 28px; height: 28px; flex-shrink: 0;
+    background: rgba(45,155,104,0.2);
+    border: 1px solid rgba(45,155,104,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--green-mid);
+    font-size: .8rem;
+    font-weight: 700;
+  }
+  .reassurance-text { font-size: .9rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
+  .reassurance-text strong { color: #fff; }
+
+  /* ── FAQ ── */
+  .faq { background: #fff; }
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 60px;
+  }
+
+  .faq-item {
+    padding: 28px;
+    border-radius: 16px;
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .faq-item:hover { border-color: var(--green); background: var(--green-lt); }
+
+  .faq-q {
+    font-weight: 700;
+    font-size: .95rem;
+    margin-bottom: 10px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 12px;
+  }
+  .faq-q::after { content: '+'; color: var(--green); font-size: 1.2rem; flex-shrink: 0; }
+  .faq-a { color: var(--muted); font-size: .875rem; line-height: 1.7; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.5);
+    padding: 60px 5% 40px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+  }
+
+  .footer-brand .logo { display: block; margin-bottom: 16px; }
+  .footer-brand p { font-size: .875rem; line-height: 1.7; max-width: 320px; }
+
+  .footer-col-title {
+    font-weight: 700;
+    font-size: .85rem;
+    color: #fff;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: .875rem; transition: color .2s; }
+  .footer-links a:hover { color: var(--green-mid); }
+
+  .footer-bottom {
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 20px 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .footer-bottom p { font-size: .78rem; color: rgba(255,255,255,0.3); }
+  .footer-disclaimer {
+    font-size: .72rem;
+    color: rgba(255,255,255,0.25);
+    max-width: 480px;
+    text-align: right;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding-top: 100px; }
+    .hero-visual { height: 320px; }
+    .hero::after { display: none; }
+    .problem-grid, .form-wrap, .faq-grid { grid-template-columns: 1fr; }
+    .how-grid, .plans-grid { grid-template-columns: 1fr; }
+    .plan-card.popular { transform: none; }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .benefit-card.featured { grid-column: span 1; }
+    .benefit-card.featured-inner { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; gap: 36px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .footer-disclaimer { text-align: center; }
+    .step-connector { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-title { font-size: 2.2rem; }
+    .trust-bar { gap: 20px; }
+    .form-row { grid-template-columns: 1fr; }
+    nav { padding: 16px 5%; }
+  }
+
+  /* success state */
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 40px;
+  }
+  .form-success.show { display: block; }
+  .success-icon { font-size: 3rem; margin-bottom: 16px; }
+  .success-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; }
+  .success-text { color: rgba(255,255,255,0.55); font-size: .9rem; line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Rent<span>Ease</span></div>
+  <a href="#apply" class="nav-cta">Apply Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content fade-up">
+    <div class="hero-eyebrow">Now available in Aba</div>
+    <h1 class="hero-title">
+      Move into your<br>home <em>today</em>.<br>Pay on your terms.
+    </h1>
+    <p class="hero-sub">
+      RentEase covers your full annual rent upfront so your landlord is paid and you're settled. You repay in manageable monthly contributions — no stress, no scrambling.
+    </p>
+    <div class="hero-actions">
+      <a href="#apply" class="btn-primary">Get Started Free</a>
+      <a href="#how" class="btn-ghost">See How It Works</a>
+    </div>
+  </div>
+
+  <div class="hero-visual fade-up" style="transition-delay:.2s">
+    <div class="card-stack">
+      <div class="card-back"></div>
+      <div class="card-main">
+        <div class="card-chip"></div>
+        <div class="card-label">Annual Rent Covered</div>
+        <div class="card-amount">₦480,000</div>
+        <div class="card-sub-label">Paid to your landlord today</div>
+        <div class="card-progress-wrap">
+          <div class="card-progress-bar"></div>
+        </div>
+        <div class="card-progress-label">
+          <span>Monthly contributions</span>
+          <span>On track ✓</span>
+        </div>
+        <div class="card-name">ADAEZE OKONKWO</div>
+      </div>
+      <div class="badge-saved">
+        <div class="badge-icon">🛡️</div>
+        <div class="badge-text">
+          Protected from rent hikes
+          <span>Fixed for 12 months</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item">No collateral required</div>
+  <div class="trust-item">Landlord paid same week</div>
+  <div class="trust-item">Fixed monthly contributions</div>
+  <div class="trust-item">Aba-based support team</div>
+  <div class="trust-item">CAC Registered</div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="section-tag">The Real Problem</div>
+  <h2 class="section-title">Annual rent is a trap.<br>We built the exit.</h2>
+  <p class="section-sub">In Nigeria, landlords demand a full year's rent in one payment. Your salary doesn't work that way. Neither does your business income. RentEase bridges that gap.</p>
+
+  <div class="problem-grid">
+    <ul class="problem-list fade-up">
+      <li class="problem-item">
+        <div class="problem-icon">💸</div>
+        <div>
+          <div class="problem-item-title">Rent increases every year</div>
+          <div class="problem-item-text">Inflation in Nigeria runs above 30%. Your landlord knows this — renewal time becomes a negotiation you always lose.</div>
+        </div>
+      </li>
+      <li class="problem-item">
+        <div class="problem-icon">⏰</div>
+        <div>
+          <div class="problem-item-title">One lump sum. No warning.</div>
+          <div class="problem-item-text">Landlords give you weeks to produce an entire year's rent. Your salary comes in monthly. The math never works in your favour.</div>
+        </div>
+      </li>
+      <li class="problem-item">
+        <div class="problem-icon">😰</div>
+        <div>
+          <div class="problem-item-title">Borrowing from the wrong places</div>
+          <div class="problem-item-text">Most people borrow from friends, family, or predatory lenders at crushing rates just to stay housed. There's a better way.</div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="inflation-card fade-up" style="transition-delay:.2s">
+      <div class="inflation-title">The Inflation Reality</div>
+      <div class="inflation-text">
+        Waiting to save for rent in Nigeria means the amount you're saving towards keeps growing. Every month you delay costs you more. RentEase locks in your rent today — before it rises again.
+      </div>
+      <div class="inflation-stat">
+        <div class="stat-row">
+          <span class="stat-label">Nigeria inflation rate (2024)</span>
+          <span class="stat-value red">~33%</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Avg. Aba rent increase at renewal</span>
+          <span class="stat-value red">20–40%</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Your contribution increase with RentEase</span>
+          <span class="stat-value green">₦0 this year</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Your rent locked for</span>
+          <span class="stat-value green">12 months ✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-tag">How It Works</div>
+  <h2 class="section-title">Settled in three steps.</h2>
+  <p class="section-sub">From application to moving in — or renewing — in less than a week. No complex paperwork, no long approval queues.</p>
+
+  <div class="how-grid">
+    <div class="step-card fade-up">
+      <div class="step-number">01</div>
+      <div class="step-icon">📋</div>
+      <div class="step-title">Apply in minutes</div>
+      <div class="step-text">Fill out a short form below. Tell us your rent amount, your landlord's details, and how you'd like to structure your monthly contributions. No long queues.</div>
+      <div class="step-connector"></div>
+    </div>
+
+    <div class="step-card fade-up" style="transition-delay:.15s">
+      <div class="step-number">02</div>
+      <div class="step-icon">🤝</div>
+      <div class="step-title">We pay your landlord</div>
+      <div class="step-text">Once approved, RentEase coordinates directly with your landlord and covers the full annual rent. You get your receipt. Your landlord gets paid. Done.</div>
+      <div class="step-connector"></div>
+    </div>
+
+    <div class="step-card fade-up" style="transition-delay:.3s">
+      <div class="step-number">03</div>
+      <div class="step-icon">📅</div>
+      <div class="step-title">Contribute monthly</div>
+      <div class="step-text">You repay through a structured monthly contribution plan — spread comfortably across the year. Fixed amount, no surprises, no penalty for being human.</div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits" id="benefits">
+  <div class="section-tag">Why RentEase</div>
+  <h2 class="section-title">Built for how Nigerians<br>actually live.</h2>
+  <p class="section-sub">Every feature exists to solve a specific pain that millions of renters in Aba and across Nigeria experience every year.</p>
+
+  <div class="benefits-grid fade-up" style="margin-top:60px">
+    <div class="benefit-card featured benefit-card-inner">
+      <div class="benefit-card featured-inner">
+        <div class="benefit-featured-icon">🛡️</div>
+        <div>
+          <div class="benefit-title">Inflation-proof your rent for 12 months</div>
+          <div class="benefit-text">When RentEase pays your landlord today, that amount is locked in. Even if prices rise by 30% before your next renewal, your contribution plan doesn't change. You win against inflation by acting early.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="benefit-card">
+      <span class="benefit-icon">💰</span>
+      <div class="benefit-title">No lump sum pressure</div>
+      <div class="benefit-text">Your income comes monthly — your rent contributions do too. No more scrambling to produce a year's worth of rent in two weeks.</div>
+    </div>
+
+    <div class="benefit-card">
+      <span class="benefit-icon">🏠</span>
+      <div class="benefit-title">Keep your home, keep your peace</div>
+      <div class="benefit-text">Renewal pressure and eviction threats disappear. Your landlord is paid on time, every time. Your relationship with them stays healthy.</div>
+    </div>
+
+    <div class="benefit-card">
+      <span class="benefit-icon">📊</span>
+      <div class="benefit-title">Clear contribution structure</div>
+      <div class="benefit-text">Know exactly what you're paying and when. No hidden fees, no shifting numbers. Your contribution plan is agreed upfront and stays fixed.</div>
+    </div>
+
+    <div class="benefit-card">
+      <span class="benefit-icon">⚡</span>
+      <div class="benefit-title">Fast landlord payment</div>
+      <div class="benefit-text">Once approved, your landlord is paid within days — not weeks. Move in confidently or renew without that anxious waiting period.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section class="plans" id="plans">
+  <div class="section-tag">Contribution Plans</div>
+  <h2 class="section-title">One plan for every renter.</h2>
+  <p class="section-sub">Choose the structure that fits your income pattern. All plans cover your full annual rent upfront.</p>
+
+  <div class="plans-grid fade-up" style="margin-top:60px">
+    <div class="plan-card">
+      <div class="plan-name">Starter</div>
+      <div class="plan-desc">Best for renters with modest annual rent and steady income looking for a simple monthly structure.</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Rent up to ₦300,000/yr covered</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Fixed monthly contributions</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Same-week landlord payment</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Dedicated support contact</div>
+      <a href="#apply" class="plan-cta plan-cta-outline">Apply Now</a>
+    </div>
+
+    <div class="plan-card popular">
+      <div class="plan-badge">Most Popular</div>
+      <div class="plan-name">Standard</div>
+      <div class="plan-desc">Our most used plan. Covers the typical Aba rental and offers flexible contribution timing.</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Rent ₦300k–₦700,000/yr covered</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Monthly or split contributions</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Priority landlord coordination</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Renewal pre-planning included</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> WhatsApp support line</div>
+      <a href="#apply" class="plan-cta plan-cta-solid">Apply Now</a>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-name">Premium</div>
+      <div class="plan-desc">For higher-value properties and renters who want a fully managed, hands-off experience.</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Rent above ₦700,000/yr covered</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Custom contribution schedule</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Property agent coordination</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Dedicated account manager</div>
+      <a href="#apply" class="plan-cta plan-cta-outline">Apply Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- APPLY FORM -->
+<section class="apply" id="apply">
+  <div class="section-tag" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7)">Apply Today</div>
+  <h2 class="section-title">Your landlord paid.<br>Your home secured.</h2>
+  <p class="section-sub">Fill in the form and our team will reach out within 24 hours to confirm your plan and begin the process.</p>
+
+  <div class="form-wrap">
+    <div class="form-card fade-up" style="padding:0;overflow:hidden;background:transparent;border:none;">
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSfa3n84Nae6t9BzEWzAJbiesGgWwTPG6lzmwuFUvHUCl74ibw/viewform?embedded=true"
+        width="100%"
+        height="900"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        style="border-radius:20px;display:block;background:#fff;"
+      >Loading application form…</iframe>
+      <p class="form-promise" style="margin-top:12px;padding:0 8px;">🔒 Your information is private and never shared with third parties.</p>
+    </div>
+
+    <div class="form-info fade-up" style="transition-delay:.2s">
+      <h3 class="form-info-title">Why people choose RentEase to secure their homes.</h3>
+      <p class="form-info-text">We've heard the same story too many times — a good tenant loses their home not because they can't afford it, but because they can't produce an entire year's rent in one payment. That's the problem we exist to solve.</p>
+
+      <ul class="reassurance-list">
+        <li class="reassurance-item">
+          <div class="reassurance-check">✓</div>
+          <div class="reassurance-text"><strong>No collateral needed.</strong> We don't ask you to put up land, property, or guarantors to access our plans.</div>
+        </li>
+        <li class="reassurance-item">
+          <div class="reassurance-check">✓</div>
+          <div class="reassurance-text"><strong>Your landlord is paid directly.</strong> We coordinate with your landlord and ensure they receive payment. You get your receipt same day.</div>
+        </li>
+        <li class="reassurance-item">
+          <div class="reassurance-check">✓</div>
+          <div class="reassurance-text"><strong>Transparent structure, always.</strong> Your contribution plan is written, agreed, and fixed before we begin. No surprises mid-year.</div>
+        </li>
+        <li class="reassurance-item">
+          <div class="reassurance-check">✓</div>
+          <div class="reassurance-text"><strong>We're Aba-based.</strong> Our team understands the local rental market, the landlord culture, and your challenges first-hand.</div>
+        </li>
+        <li class="reassurance-item">
+          <div class="reassurance-check">✓</div>
+          <div class="reassurance-text"><strong>Inflation works for you, not against you.</strong> Pay today's price. Live in it for a year. Beat the market.</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="section-tag">Questions</div>
+  <h2 class="section-title">Straight answers.</h2>
+
+  <div class="faq-grid fade-up" style="margin-top:60px">
+    <div class="faq-item">
+      <div class="faq-q">Is RentEase a loan or a bank?</div>
+      <div class="faq-a">No. RentEase is a rent payment coordination and contribution management service. We structure and manage your rent payment plan — we are not a bank, lender, or financial institution.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How quickly can my landlord be paid?</div>
+      <div class="faq-a">Once your application is approved and your contribution plan is agreed, landlord payment typically happens within 3–5 business days. Urgent cases are handled faster.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What if my landlord refuses to cooperate?</div>
+      <div class="faq-a">Our team will reach out to your landlord directly to explain the process. Most landlords prefer this arrangement because they receive full payment immediately — better than waiting for a tenant to gather funds.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How does the inflation protection work?</div>
+      <div class="faq-a">Once your rent is paid, that figure is locked. If your landlord increases rent at renewal, that increase only applies to the next plan — not the current year you've already secured.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What happens if I miss a monthly contribution?</div>
+      <div class="faq-a">Life happens. We have a short grace window and will contact you to restructure if needed. Our goal is to keep you housed — not to create more stress for you.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Is there a service fee?</div>
+      <div class="faq-a">Yes. RentEase charges a transparent, one-time service coordination fee agreed upfront as part of your plan. It is included in your contribution calculation — no hidden charges.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="logo">Rent<span>Ease</span></div>
+    <p>RentEase helps renters in Aba and across Nigeria access structured, manageable rent payment plans — so that a good home is never out of reach because of a lump-sum problem.</p>
+  </div>
+
+  <div>
+    <div class="footer-col-title">Navigate</div>
+    <ul class="footer-links">
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#benefits">Benefits</a></li>
+      <li><a href="#plans">Plans</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#apply">Apply</a></li>
+    </ul>
+  </div>
+
+  <div>
+    <div class="footer-col-title">Contact</div>
+    <ul class="footer-links">
+      <li><a href="https://wa.me/2349055732557" target="_blank">WhatsApp Us</a></li>
+      <li><a href="#">Email Support</a></li>
+      <li><a href="#">Aba Office</a></li>
+    </ul>
+  </div>
+</footer>
+
+<div class="footer-bottom">
+  <p>© 2025 RentEase. CAC Registered. Aba, Abia State, Nigeria.</p>
+  <p class="footer-disclaimer">RentEase is a rent payment coordination and contribution management service. We are not a bank, microfinance institution, or financial lender. No deposit-taking activity is conducted.</p>
+</div>
+
+<script>
+  // Fade-up on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Nav shrink on scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.padding = window.scrollY > 60 ? '12px 5%' : '20px 5%';
+  });
+</script>
+</body>
+</html>
