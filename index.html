@@ -16,6 +16,8 @@
     --green-lt:  #E8F5EE;
     --gold:      #C8962A;
     --gold-lt:   #FDF3DC;
+    --terra:     #C4602A;
+    --terra-lt:  #FDF0E8;
     --muted:     #6B7280;
     --border:    rgba(13,27,42,0.10);
   }
@@ -80,6 +82,8 @@
     gap: 60px;
     position: relative;
     overflow: hidden;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='80' opacity='0.025'%3E%3Cpolyline points='0,80 20,40 40,60 60,20 80,50 100,30 120,60 120,80' fill='none' stroke='%231A6B4A' stroke-width='2'/%3E%3C/svg%3E");
+    background-size: 120px 80px;
   }
 
   /* big decorative circle */
@@ -96,9 +100,9 @@
 
   .hero-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
-    background: var(--gold-lt);
-    color: var(--gold);
-    border: 1px solid rgba(200,150,42,0.25);
+    background: var(--terra-lt);
+    color: var(--terra);
+    border: 1px solid rgba(196,96,42,0.25);
     padding: 6px 14px;
     border-radius: 100px;
     font-size: .78rem;
@@ -111,7 +115,7 @@
 
   .hero-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2.6rem, 5vw, 4.2rem);
+    font-size: clamp(2rem, 5vw, 4.2rem);
     font-weight: 900;
     line-height: 1.08;
     letter-spacing: -1px;
@@ -163,7 +167,7 @@
     border: 1.5px solid var(--border);
     transition: all .25s;
   }
-  .btn-ghost:hover { border-color: var(--green); color: var(--green); }
+  .btn-ghost:hover { border-color: var(--terra); color: var(--terra); }
 
   /* hero right — visual card stack */
   .hero-visual {
@@ -319,8 +323,8 @@
 
   .section-tag {
     display: inline-block;
-    background: var(--green-lt);
-    color: var(--green);
+    background: var(--terra-lt);
+    color: var(--terra);
     padding: 5px 14px;
     border-radius: 100px;
     font-size: .78rem;
@@ -332,7 +336,7 @@
 
   .section-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(1.8rem, 4vw, 3rem);
     font-weight: 900;
     line-height: 1.12;
     letter-spacing: -.5px;
@@ -439,7 +443,8 @@
   }
   .step-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 24px 60px rgba(13,27,42,0.1);
+    box-shadow: 0 24px 60px rgba(196,96,42,0.1);
+    border-color: var(--terra);
   }
 
   .step-number {
@@ -497,7 +502,7 @@
     transition: opacity .25s;
   }
   .benefit-card:hover::before { opacity: 1; }
-  .benefit-card:hover { border-color: var(--green); transform: translateY(-3px); }
+  .benefit-card:hover { border-color: var(--terra); transform: translateY(-3px); }
 
   .benefit-card > * { position: relative; z-index: 1; }
 
@@ -743,18 +748,47 @@
     border: 1.5px solid var(--border);
     cursor: pointer;
     transition: all .2s;
+    user-select: none;
   }
-  .faq-item:hover { border-color: var(--green); background: var(--green-lt); }
+  .faq-item:hover { border-color: var(--terra); background: var(--terra-lt); }
+  .faq-item.open { border-color: var(--green); background: var(--green-lt); }
 
   .faq-q {
     font-weight: 700;
     font-size: .95rem;
-    margin-bottom: 10px;
-    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 12px;
   }
-  .faq-q::after { content: '+'; color: var(--green); font-size: 1.2rem; flex-shrink: 0; }
-  .faq-a { color: var(--muted); font-size: .875rem; line-height: 1.7; }
+  .faq-q::after {
+    content: '+';
+    color: var(--green);
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    transition: transform .3s ease;
+    line-height: 1;
+  }
+  .faq-item.open .faq-q::after {
+    transform: rotate(45deg);
+    color: var(--terra);
+  }
+  .faq-a {
+    color: var(--muted);
+    font-size: .875rem;
+    line-height: 1.7;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .35s ease, margin-top .35s ease, opacity .35s ease;
+    opacity: 0;
+    margin-top: 0;
+  }
+  .faq-item.open .faq-a {
+    max-height: 300px;
+    opacity: 1;
+    margin-top: 14px;
+  }
 
   /* ── FOOTER ── */
   footer {
@@ -831,7 +865,460 @@
     nav { padding: 16px 5%; }
   }
 
-  /* ── CALCULATOR ── */
+  /* ── STATS ── */
+  .stats-section {
+    background: var(--cream);
+    padding: 60px 5%;
+    border-bottom: 1px solid var(--border);
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+    align-items: center;
+    gap: 0;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .stat-item { text-align: center; padding: 0 20px; }
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-item:nth-child(3) .stat-number { color: var(--terra); }
+  .stat-item:nth-child(7) .stat-number { color: var(--gold); }
+  .stat-label {
+    font-weight: 700;
+    font-size: .9rem;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .stat-sub {
+    font-size: .75rem;
+    color: var(--muted);
+  }
+  .stat-divider {
+    width: 1px;
+    height: 60px;
+    background: var(--border);
+  }
+  @media (max-width: 700px) {
+    .stats-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .stat-divider { display: none; }
+  }
+
+  /* ── CAROUSEL ── */
+  .carousel-wrap { position:relative; width:100%; }
+  .carousel-track {
+    display:flex;
+    overflow:hidden;
+    border-radius:24px;
+    box-shadow:0 32px 80px rgba(13,27,42,0.35);
+    touch-action:pan-y;
+  }
+  .carousel-card {
+    min-width:100%;
+    padding:36px;
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+    transition:transform .4s ease;
+    min-height:340px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .carousel-card::before {
+    content:'';
+    position:absolute;
+    width:260px;height:260px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.06);
+    top:-60px;right:-60px;
+  }
+  .card-badge-mini {
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:rgba(255,255,255,0.12);
+    border-radius:100px;
+    padding:6px 14px;
+    font-size:.75rem;
+    font-weight:600;
+    margin-top:8px;
+    width:fit-content;
+  }
+  .carousel-dots {
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-top:16px;
+  }
+  .carousel-dot {
+    width:8px;height:8px;
+    border-radius:50%;
+    background:rgba(13,27,42,0.2);
+    cursor:pointer;
+    transition:all .3s;
+  }
+  .carousel-dot.active {
+    background:var(--green);
+    width:24px;
+    border-radius:4px;
+  }
+
+  /* ── PRE-QUALIFIER ── */
+  .preq-section { background:#fff; padding:100px 5%; }
+  .preq-wrap {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    margin-top:60px;
+    align-items:start;
+  }
+  .preq-card {
+    background:var(--ink);
+    border-radius:24px;
+    padding:40px;
+  }
+  .preq-input-group { margin-bottom:28px; }
+  .preq-label {
+    display:block;
+    font-size:.8rem;
+    font-weight:600;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.5);
+    margin-bottom:10px;
+  }
+  .preq-input-row {
+    display:flex;
+    align-items:center;
+    background:rgba(255,255,255,0.08);
+    border:1.5px solid rgba(255,255,255,0.15);
+    border-radius:12px;
+    overflow:hidden;
+    margin-bottom:12px;
+  }
+  .preq-prefix {
+    padding:0 14px;
+    color:var(--green-mid);
+    font-weight:700;
+    font-size:1.1rem;
+    border-right:1px solid rgba(255,255,255,0.1);
+  }
+  .preq-input {
+    background:transparent;
+    border:none;
+    outline:none;
+    color:#fff;
+    font-family:'DM Sans',sans-serif;
+    font-size:1.1rem;
+    font-weight:600;
+    padding:14px 16px;
+    width:100%;
+  }
+  .preq-input::-webkit-outer-spin-button,
+  .preq-input::-webkit-inner-spin-button { -webkit-appearance:none; }
+  .preq-result { margin-top:4px; }
+  .preq-result-hero {
+    background:rgba(45,155,104,0.15);
+    border:1px solid rgba(45,155,104,0.3);
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:16px;
+    text-align:center;
+  }
+  .preq-result-label { font-size:.78rem; color:rgba(255,255,255,0.5); margin-bottom:6px; }
+  .preq-result-value { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; color:var(--green-mid); }
+  .preq-result-rows { display:flex; flex-direction:column; gap:0; margin-bottom:16px; }
+  .preq-result-row {
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid rgba(255,255,255,0.07);
+    font-size:.85rem;
+    color:rgba(255,255,255,0.6);
+  }
+  .preq-result-row:last-child { border-bottom:none; }
+  .preq-verdict {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 18px;
+    border-radius:12px;
+    background:rgba(45,155,104,0.1);
+    border:1px solid rgba(45,155,104,0.2);
+    font-size:.85rem;
+    color:rgba(255,255,255,0.8);
+    margin-bottom:20px;
+  }
+  .preq-verdict.warn { background:rgba(200,150,42,0.1); border-color:rgba(200,150,42,0.2); }
+  .preq-verdict-icon { font-size:1.2rem; }
+  .preq-cta {
+    display:block;
+    text-align:center;
+    background:var(--green);
+    color:#fff;
+    padding:14px;
+    border-radius:100px;
+    font-weight:700;
+    font-size:.9rem;
+    text-decoration:none;
+    transition:all .2s;
+  }
+  .preq-cta:hover { background:var(--green-mid); }
+  .preq-info { padding-top:8px; }
+  .preq-info-title {
+    font-family:'Playfair Display',serif;
+    font-size:1.6rem;
+    font-weight:700;
+    margin-bottom:16px;
+  }
+  .preq-info-text { color:var(--muted); font-size:.95rem; line-height:1.7; margin-bottom:28px; }
+  .preq-info-points { display:flex; flex-direction:column; gap:20px; }
+  .preq-point { display:flex; gap:16px; align-items:flex-start; }
+  .preq-point-icon {
+    width:44px;height:44px;flex-shrink:0;
+    background:var(--green-lt);
+    border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.2rem;
+  }
+  .preq-point-title { font-weight:700; font-size:.9rem; margin-bottom:4px; }
+  .preq-point-text { color:var(--muted); font-size:.82rem; line-height:1.6; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background:var(--cream); padding:100px 5%; }
+  .testi-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    margin-top:60px;
+  }
+  .testi-card {
+    background:#fff;
+    border-radius:24px;
+    padding:36px;
+    border:1.5px solid var(--border);
+    position:relative;
+    transition:all .25s;
+  }
+  .testi-card:hover { transform:translateY(-4px); box-shadow:0 20px 60px rgba(13,27,42,0.1); }
+  .testi-card.featured {
+    background:var(--green);
+    border-color:var(--green);
+    color:#fff;
+  }
+  .testi-quote {
+    font-family:'Playfair Display',serif;
+    font-size:5rem;
+    color:var(--green-lt);
+    line-height:.8;
+    margin-bottom:16px;
+  }
+  .testi-card.featured .testi-quote { color:rgba(255,255,255,0.2); }
+  .testi-text {
+    font-size:.9rem;
+    line-height:1.75;
+    color:var(--muted);
+    margin-bottom:24px;
+    font-style:italic;
+  }
+  .testi-card.featured .testi-text { color:rgba(255,255,255,0.75); }
+  .testi-author {
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:16px;
+  }
+  .testi-avatar {
+    width:44px;height:44px;
+    border-radius:50%;
+    background:var(--green-lt);
+    color:var(--green);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:.85rem;
+    flex-shrink:0;
+  }
+  .testi-card.featured .testi-avatar { background:rgba(255,255,255,0.2); color:#fff; }
+  .testi-name { font-weight:700; font-size:.9rem; }
+  .testi-card.featured .testi-name { color:#fff; }
+  .testi-detail { font-size:.78rem; color:var(--muted); }
+  .testi-card.featured .testi-detail { color:rgba(255,255,255,0.55); }
+  .testi-tag {
+    display:inline-block;
+    background:var(--green-lt);
+    color:var(--green);
+    padding:5px 14px;
+    border-radius:100px;
+    font-size:.75rem;
+    font-weight:600;
+  }
+  .testi-card.featured .testi-tag { background:rgba(255,255,255,0.15); color:#fff; }
+  .testi-disclaimer {
+    text-align:center;
+    color:var(--muted);
+    font-size:.75rem;
+    margin-top:28px;
+    font-style:italic;
+  }
+
+  /* ── WHATSAPP FLOAT ── */
+  .wa-float {
+    position:fixed;
+    bottom:28px;
+    right:24px;
+    z-index:999;
+    background:#25D366;
+    color:#fff;
+    border-radius:100px;
+    padding:14px 20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    box-shadow:0 8px 28px rgba(37,211,102,0.4);
+    transition:all .25s;
+    font-weight:600;
+    font-size:.9rem;
+    font-family:'DM Sans',sans-serif;
+  }
+  .wa-float:hover {
+    transform:translateY(-3px);
+    box-shadow:0 14px 36px rgba(37,211,102,0.5);
+  }
+  .wa-float-label { white-space:nowrap; }
+
+  @media (max-width:900px) {
+    .preq-wrap { grid-template-columns:1fr; }
+    .testi-grid { grid-template-columns:1fr; }
+    .wa-float-label { display:none; }
+    .wa-float { padding:16px; border-radius:50%; }
+  }
+
+
+  .plan-sel-grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .plan-sel-card.elite {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, rgba(200,150,42,0.08), rgba(200,150,42,0.03));
+    position: relative;
+  }
+  .plan-sel-card.elite.selected { border-color: var(--gold); background: rgba(200,150,42,0.15); }
+  .plan-sel-elite-badge {
+    position: absolute;
+    top: -12px; left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--gold), #e8b84b);
+    color: #fff;
+    font-size: .7rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 100px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .elite-pct { color: var(--gold) !important; }
+  .plan-sel-elite-note {
+    font-size: .72rem;
+    color: rgba(200,150,42,0.8);
+    line-height: 1.55;
+    background: rgba(200,150,42,0.08);
+    border: 1px solid rgba(200,150,42,0.2);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 1100px) {
+    .plan-sel-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .plan-sel-grid-4 { grid-template-columns: 1fr; }
+  }
+
+  /* ── MODALS ── */
+  .modal-overlay {
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(13,27,42,0.85);
+    z-index:9999;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    backdrop-filter:blur(4px);
+  }
+  .modal-overlay.open { display:flex; }
+  .modal-box {
+    background:#fff;
+    border-radius:20px;
+    max-width:620px;
+    width:100%;
+    max-height:85vh;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  .modal-header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 28px;
+    border-bottom:1px solid #e5e7eb;
+    background:var(--green);
+  }
+  .modal-title {
+    font-family:'Playfair Display',serif;
+    font-size:1.2rem;
+    font-weight:700;
+    color:#fff;
+  }
+  .modal-close {
+    background:rgba(255,255,255,0.2);
+    border:none;
+    color:#fff;
+    width:32px;height:32px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:1rem;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .2s;
+  }
+  .modal-close:hover { background:rgba(255,255,255,0.35); }
+  .modal-body {
+    padding:28px;
+    overflow-y:auto;
+    flex:1;
+  }
+  .modal-body h3 {
+    font-size:.9rem;
+    font-weight:700;
+    color:var(--green);
+    margin:20px 0 6px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+  .modal-body h3:first-of-type { margin-top:0; }
+  .modal-body p {
+    font-size:.85rem;
+    color:#4B5563;
+    line-height:1.7;
+  }
+  .modal-updated {
+    font-size:.75rem;
+    color:#9CA3AF;
+    font-style:italic;
+    margin-bottom:20px !important;
+  }
+
   .calc-section {
     background: var(--ink);
     color: #fff;
@@ -1286,28 +1773,67 @@
   </div>
 
   <div class="hero-visual fade-up" style="transition-delay:.2s">
-    <div class="card-stack">
-      <div class="card-back"></div>
-      <div class="card-main">
-        <div class="card-chip"></div>
-        <div class="card-label">Annual Rent Covered</div>
-        <div class="card-amount">₦480,000</div>
-        <div class="card-sub-label">Paid to your landlord today</div>
-        <div class="card-progress-wrap">
-          <div class="card-progress-bar"></div>
+    <div class="carousel-wrap">
+      <div class="carousel-track" id="carouselTrack">
+
+        <!-- Card 1 — Dark Blue -->
+        <div class="carousel-card" style="background:linear-gradient(135deg,#0D1B2A 0%,#1a3a5c 100%)">
+          <div class="card-chip"></div>
+          <div class="card-label">Annual Rent Coordinated</div>
+          <div class="card-amount">₦480,000</div>
+          <div class="card-sub-label">Paid to your landlord today</div>
+          <div class="card-progress-wrap">
+            <div class="card-progress-bar" style="width:65%"></div>
+          </div>
+          <div class="card-progress-label">
+            <span>Monthly contributions</span>
+            <span>On track ✓</span>
+          </div>
+          <div class="card-name">ADAEZE OKONKWO</div>
+          <div class="card-badge-mini">🛡️ Protected from rent hikes</div>
         </div>
-        <div class="card-progress-label">
-          <span>Monthly contributions</span>
-          <span>On track ✓</span>
+
+        <!-- Card 2 — Deep Green -->
+        <div class="carousel-card" style="background:linear-gradient(135deg,#1A6B4A 0%,#0d3d2a 100%)">
+          <div class="card-chip" style="background:linear-gradient(135deg,#fff,#e0e0e0)"></div>
+          <div class="card-label">Shop Rent Coordinated</div>
+          <div class="card-amount">₦1,200,000</div>
+          <div class="card-sub-label">Plaza tenancy secured this week</div>
+          <div class="card-progress-wrap">
+            <div class="card-progress-bar" style="width:30%;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.5))"></div>
+          </div>
+          <div class="card-progress-label">
+            <span>Quarterly contributions</span>
+            <span>Active ✓</span>
+          </div>
+          <div class="card-name">CHUKWUEMEKA T.</div>
+          <div class="card-badge-mini">🏪 Business location secured</div>
         </div>
-        <div class="card-name">ADAEZE OKONKWO</div>
+
+        <!-- Card 3 — Gold Dark -->
+        <div class="carousel-card" style="background:linear-gradient(135deg,#7a5010 0%,#3d2800 100%)">
+          <div class="card-chip" style="background:linear-gradient(135deg,#C8962A,#f0b84a)"></div>
+          <div class="card-label">Renewal Coordinated</div>
+          <div class="card-amount">₦650,000</div>
+          <div class="card-sub-label">Renewed before landlord increased</div>
+          <div class="card-progress-wrap">
+            <div class="card-progress-bar" style="width:90%;background:linear-gradient(90deg,#C8962A,#f0b84a)"></div>
+          </div>
+          <div class="card-progress-label">
+            <span>Almost complete</span>
+            <span>2 months left ✓</span>
+          </div>
+          <div class="card-name">NGOZI A.</div>
+          <div class="card-badge-mini">🔒 Beat the rent increase</div>
+        </div>
+
       </div>
-      <div class="badge-saved">
-        <div class="badge-icon">🛡️</div>
-        <div class="badge-text">
-          Protected from rent hikes
-          <span>Fixed for 12 months</span>
-        </div>
+
+      <!-- Dots -->
+      <div class="carousel-dots">
+        <div class="carousel-dot active" onclick="goToSlide(0)"></div>
+        <div class="carousel-dot" onclick="goToSlide(1)"></div>
+        <div class="carousel-dot" onclick="goToSlide(2)"></div>
       </div>
     </div>
   </div>
@@ -1322,6 +1848,35 @@
   <div class="trust-item">Aba-based support team</div>
   <div class="trust-item">CAC Registered · RC-9513604</div>
 </div>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-item fade-up">
+      <div class="stat-number" id="statTenants">0</div>
+      <div class="stat-label">Tenants Settled</div>
+      <div class="stat-sub">in Aba since launch</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item fade-up" style="transition-delay:.1s">
+      <div class="stat-number" id="statAmount">₦0</div>
+      <div class="stat-label">Coordinated to Landlords</div>
+      <div class="stat-sub">in verified rent payments</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item fade-up" style="transition-delay:.2s">
+      <div class="stat-number" id="statDays">0</div>
+      <div class="stat-label">Avg. Days to Settlement</div>
+      <div class="stat-sub">from application to landlord paid</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item fade-up" style="transition-delay:.3s">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">Landlord Payment Success</div>
+      <div class="stat-sub">no missed or delayed payments</div>
+    </div>
+  </div>
+</section>
 
 <!-- PROBLEM -->
 <section class="problem" id="problem">
@@ -1548,7 +2103,7 @@
   <!-- PLAN SELECTOR -->
   <div class="plan-selector fade-up">
     <div class="plan-sel-title">Which plan suits you?</div>
-    <div class="plan-sel-grid">
+    <div class="plan-sel-grid plan-sel-grid-4">
       <div class="plan-sel-card" id="planStarter" onclick="selectPlan('starter')">
         <div class="plan-sel-badge">Starter</div>
         <div class="plan-sel-pct">20%</div>
@@ -1587,6 +2142,21 @@
           <li>✓ Priority processing</li>
         </ul>
         <div class="plan-sel-cta">Select Priority →</div>
+      </div>
+
+      <div class="plan-sel-card elite" id="planElite" onclick="selectPlan('elite')">
+        <div class="plan-sel-elite-badge">By Invitation</div>
+        <div class="plan-sel-badge">Elite</div>
+        <div class="plan-sel-pct elite-pct">0%</div>
+        <div class="plan-sel-label">Initial Contribution</div>
+        <div class="plan-sel-desc">No upfront payment required. Full rent coordinated immediately upon approval.</div>
+        <ul class="plan-sel-list">
+          <li>✓ Zero initial contribution</li>
+          <li>✓ Full amount coordinated upfront</li>
+          <li>✓ Flexible contribution schedule</li>
+        </ul>
+        <div class="plan-sel-elite-note">⚠️ This plan is available to all applicants but is granted strictly at the discretion of the RentEase review team following thorough credit and character assessment. Approval is not guaranteed.</div>
+        <div class="plan-sel-cta" style="color:var(--gold)">Apply for Elite →</div>
       </div>
     </div>
   </div>
@@ -1700,51 +2270,10 @@
   </div>
 </section>
 
-<!-- PLANS -->
-<section class="plans" id="plans">
-  <div class="section-tag">Contribution Plans</div>
-  <h2 class="section-title">One plan for every renter.</h2>
-  <p class="section-sub">Choose the contribution structure that fits your income pattern — monthly or quarterly. All plans coordinate your full annual rent upfront so your landlord is paid immediately.</p>
-
-  <div class="plans-grid fade-up" style="margin-top:60px">
-    <div class="plan-card">
-      <div class="plan-name">Starter</div>
-      <div class="plan-desc">Best for renters with modest annual rent and steady income looking for a simple monthly structure.</div>
-      <div class="plan-feature"><span class="plan-check">✓</span> Rent up to ₦300,000/yr coordinated</div>
-      <div class="plan-feature"><span class="plan-check">✓</span> Flexible monthly contributions</div>
-      <div class="plan-feature"><span class="plan-check">✓</span> Same-week landlord payment</div>
-      <div class="plan-feature"><span class="plan-check">✓</span> Dedicated support contact</div>
-      <a href="#apply" class="plan-cta plan-cta-outline">Apply Now</a>
-    </div>
-
-    <div class="plan-card popular">
-      <div class="plan-badge">Most Popular</div>
-      <div class="plan-name">Standard</div>
-      <div class="plan-desc">Our most used plan. Covers the typical Aba rental and offers flexible contribution timing.</div>
-      <div class="plan-feature"><span class="plan-check">✓</span> Rent ₦300k–₦700,000/yr coordinated</div>
-      <div class="plan-feature"><span class="plan-check">✓</span> Monthly or quarterly contributions</div>
-      <div class="plan-feature"><span class="plan-check">✓</span> Priority landlord coordination</div>
-      <div class="plan-feature"><span class="plan-check">✓</span> Renewal pre-planning included</div>
-      <div class="plan-feature"><span class="plan-check">✓</span> WhatsApp support line</div>
-      <a href="#apply" class="plan-cta plan-cta-solid">Apply Now</a>
-    </div>
-
-    <div class="plan-card">
-      <div class="plan-name">Premium</div>
-      <div class="plan-desc">For higher-value properties and renters who want a fully managed, hands-off experience.</div>
-      <div class="plan-feature"><span class="plan-check">✓</span> Rent above ₦700,000/yr covered</div>
-      <div class="plan-feature"><span class="plan-check">✓</span> Custom contribution schedule</div>
-      <div class="plan-feature"><span class="plan-check">✓</span> Property agent coordination</div>
-      <div class="plan-feature"><span class="plan-check">✓</span> Dedicated account manager</div>
-      <a href="#apply" class="plan-cta plan-cta-outline">Apply Now</a>
-    </div>
-  </div>
-</section>
-
 <!-- TESTIMONIALS -->
 <section class="testimonials" id="testimonials">
   <div class="section-tag">Real Stories</div>
-  <h2 class="section-title">Aba tenants who stopped<br>scrambling for rent.</h2>
+  <h2 class="section-title">From tenants and landlords<br>who chose RentEase.</h2>
   <p class="section-sub">These are the people RentEase exists for.</p>
 
   <div class="testi-grid fade-up">
@@ -1758,7 +2287,7 @@
           <div class="testi-detail">Fabrics trader · Ariaria Market, Aba</div>
         </div>
       </div>
-      <div class="testi-tag">Rent coordinated: ₦380,000</div>
+      <div class="testi-tag">Tenant · Rent coordinated: ₦380,000</div>
     </div>
 
     <div class="testi-card featured">
@@ -1771,7 +2300,20 @@
           <div class="testi-detail">Civil servant · GRA, Aba</div>
         </div>
       </div>
-      <div class="testi-tag">Rent coordinated: ₦450,000</div>
+      <div class="testi-tag">Tenant · Rent coordinated: ₦450,000</div>
+    </div>
+
+    <div class="testi-card" style="grid-column:span 2">
+      <div class="testi-quote">"</div>
+      <div class="testi-text">I have four units in my compound and for years I was always chasing two or three tenants at renewal time. The arguments, the excuses, the delays — it was exhausting. Since I started working with RentEase, my rent comes in full before the tenancy even starts. They brought me two new verified tenants this year. I did not have to look for anybody. Everything was clean, documented, and professional. I have already referred them to my friend who has property in Aba South."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">CU</div>
+        <div>
+          <div class="testi-name">Chief C. U.</div>
+          <div class="testi-detail">Property owner · 4 units · Aba</div>
+        </div>
+      </div>
+      <div class="testi-tag">🏠 Landlord Partner · 2 tenants placed</div>
     </div>
   </div>
 
@@ -1886,27 +2428,116 @@
     <ul class="footer-links">
       <li><a href="#how">How It Works</a></li>
       <li><a href="#benefits">Benefits</a></li>
+      <li><a href="#qualify">Can I Qualify?</a></li>
       <li><a href="#calculator">Calculator</a></li>
-      <li><a href="#plans">Plans</a></li>
+      <li><a href="#testimonials">Stories</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#apply">Apply</a></li>
     </ul>
   </div>
 
   <div>
-    <div class="footer-col-title">Contact</div>
+    <div class="footer-col-title">Contact & Legal</div>
     <ul class="footer-links">
       <li><a href="https://wa.me/2349055732557" target="_blank">WhatsApp Us</a></li>
       <li><a href="mailto:hello@renteaseservices.com">hello@renteaseservices.com</a></li>
-      <li><a href="#">Aba Office</a></li>
+      <li><a href="#" onclick="openModal('termsModal');return false;">Terms & Conditions</a></li>
+      <li><a href="#" onclick="openModal('privacyModal');return false;">Privacy Policy</a></li>
     </ul>
   </div>
 </footer>
 
 <div class="footer-bottom">
   <p>© 2026 RentEase Services Limited · RC-9513604 · Aba, Abia State, Nigeria.</p>
-  <p class="footer-disclaimer">RentEase is a rent payment coordination and flexible contribution management service. We are not a bank, microfinance institution, or financial lender. No deposit-taking activity is conducted. All transactions are rent coordination arrangements between tenants and landlords.</p>
+  <p class="footer-disclaimer">RentEase is a rent payment coordination and flexible contribution management service. We are not a bank, microfinance institution, or financial lender. No deposit-taking activity is conducted. All transactions are rent coordination arrangements between tenants and landlords. <a href="#" onclick="openModal('termsModal');return false;" style="color:rgba(255,255,255,0.4);text-decoration:underline;">Terms</a> · <a href="#" onclick="openModal('privacyModal');return false;" style="color:rgba(255,255,255,0.4);text-decoration:underline;">Privacy</a></p>
 </div>
+
+<!-- TERMS MODAL -->
+<div class="modal-overlay" id="termsModal" onclick="closeModal('termsModal')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title">Terms & Conditions</div>
+      <button class="modal-close" onclick="closeModal('termsModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-updated">Last updated: May 2026</p>
+
+      <h3>1. About RentEase</h3>
+      <p>Rent Ease Services Limited (RC-9513604) is a rent payment coordination and contribution management service registered in Nigeria. We are not a bank, microfinance institution, or financial lender. We do not accept deposits or provide credit facilities.</p>
+
+      <h3>2. Our Service</h3>
+      <p>RentEase facilitates rent payment arrangements between tenants and landlords. We coordinate the payment of annual rent to landlords on behalf of tenants and manage structured contribution schedules for the recovery of the coordinated amount, plus a service coordination fee.</p>
+
+      <h3>3. Service Coordination Fee</h3>
+      <p>RentEase charges a service coordination fee calculated as 18% of the remaining rent balance after the customer's initial contribution. This fee is agreed and disclosed upfront before any commitment is made.</p>
+
+      <h3>4. Initial Contribution</h3>
+      <p>Before RentEase coordinates payment to your landlord, you are required to make an initial contribution of between 20% and 50% of your annual rent amount, as agreed during onboarding. This contribution is applied directly toward your rent and is non-refundable once the landlord has been paid.</p>
+
+      <h3>5. Customer Obligations</h3>
+      <p>By engaging RentEase you agree to: (a) provide accurate and truthful information during onboarding; (b) make contributions on agreed dates; (c) notify RentEase immediately of any change in circumstances that may affect your ability to contribute; (d) ensure your guarantor is aware of and consents to their role.</p>
+
+      <h3>6. Default</h3>
+      <p>If a contribution is not received within 7 days of the agreed date, a late fee will apply. Continued default may result in escalation to your guarantor, legal recovery action, and reporting to relevant authorities. RentEase will always attempt to reach a resolution before escalation.</p>
+
+      <h3>7. Guarantor</h3>
+      <p>Where a guarantor is required, they accept joint responsibility for outstanding contributions if the primary customer defaults. Guarantors must be Aba-based, independently verifiable, and must provide consent in writing.</p>
+
+      <h3>8. Landlord Coordination</h3>
+      <p>RentEase coordinates directly with your landlord. By engaging our service, you authorise RentEase to communicate with your landlord on your behalf for the purpose of rent payment.</p>
+
+      <h3>9. Limitation of Liability</h3>
+      <p>RentEase is not liable for delays caused by landlord unavailability, incomplete information provided by the customer, or circumstances beyond our reasonable control. Our liability is limited to the service coordination fee paid.</p>
+
+      <h3>10. Governing Law</h3>
+      <p>These terms are governed by the laws of the Federal Republic of Nigeria. Any disputes shall be resolved in a court of competent jurisdiction in Abia State.</p>
+
+      <h3>11. Contact</h3>
+      <p>For any questions regarding these terms, contact us at hello@renteaseservices.com or via WhatsApp: 09055732557.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRIVACY MODAL -->
+<div class="modal-overlay" id="privacyModal" onclick="closeModal('privacyModal')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title">Privacy Policy</div>
+      <button class="modal-close" onclick="closeModal('privacyModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-updated">Last updated: May 2026</p>
+
+      <h3>1. Introduction</h3>
+      <p>Rent Ease Services Limited ("RentEase", "we", "us") is committed to protecting your personal information. This policy explains what data we collect, how we use it, and your rights regarding your data.</p>
+
+      <h3>2. Information We Collect</h3>
+      <p>We collect the following personal information during onboarding and service delivery: full name, phone number, email address, NIN (National Identification Number), home and work address, employment or business details, monthly income information, landlord contact details, and guarantor information.</p>
+
+      <h3>3. How We Use Your Information</h3>
+      <p>Your information is used to: (a) verify your identity and assess your contribution capacity; (b) coordinate rent payment with your landlord; (c) manage your contribution schedule; (d) contact you regarding your account; (e) comply with our legal obligations under Nigerian law.</p>
+
+      <h3>4. Information Sharing</h3>
+      <p>We do not sell, rent, or share your personal information with third parties for marketing purposes. We may share your information with: your landlord (for the purpose of rent coordination), your guarantor (where relevant to default recovery), and legal or regulatory authorities where required by law.</p>
+
+      <h3>5. Data Security</h3>
+      <p>We take reasonable steps to protect your personal information from unauthorised access, disclosure, or loss. Customer records are stored securely and access is restricted to authorised RentEase personnel only.</p>
+
+      <h3>6. Data Retention</h3>
+      <p>We retain your personal information for the duration of your engagement with RentEase and for a period of 5 years after your final transaction, as required for legal and regulatory compliance. You may request deletion of your data after this period.</p>
+
+      <h3>7. Your Rights</h3>
+      <p>You have the right to: access the personal information we hold about you; request correction of inaccurate information; request deletion of your data (subject to legal retention requirements); withdraw consent for communications at any time.</p>
+
+      <h3>8. Cookies</h3>
+      <p>Our website does not currently use tracking cookies or third-party analytics tools that collect personal information.</p>
+
+      <h3>9. Contact</h3>
+      <p>For any privacy-related requests or concerns, contact us at hello@renteaseservices.com or via WhatsApp: 09055732557.</p>
+    </div>
+  </div>
+</div>
+
 
 <script>
   // Fade-up on scroll
@@ -1927,6 +2558,7 @@
     starter:  { name: 'Starter Plan',  pct: 20, desc: '20% initial contribution · Maximum flexibility' },
     standard: { name: 'Standard Plan', pct: 33, desc: '33% initial contribution · Balanced payments' },
     priority: { name: 'Priority Plan', pct: 50, desc: '50% initial contribution · Fastest coordination' },
+    elite:    { name: 'Elite Plan',    pct: 0,  desc: '0% initial contribution · Subject to review team approval' },
   };
 
   function fmt(n) {
@@ -2148,11 +2780,138 @@
 
   calcUpdate();
 
+  // ── FAQ ACCORDION ──
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // ── STATS COUNTER ──
+  function animateCount(el, target, prefix, suffix, duration) {
+    let start = 0;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) {
+        start = target;
+        clearInterval(timer);
+      }
+      el.textContent = prefix + Math.round(start).toLocaleString('en-NG') + suffix;
+    }, 16);
+  }
+
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCount(document.getElementById('statTenants'), 7, '', '', 1200);
+        animateCount(document.getElementById('statAmount'), 2850000, '₦', '', 1500);
+        animateCount(document.getElementById('statDays'), 5, '', '', 800);
+        statsObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const statsEl = document.querySelector('.stats-section');
+  if (statsEl) statsObserver.observe(statsEl);
+
+  // ── MODALS ──
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      ['termsModal','privacyModal'].forEach(closeModal);
+    }
+  });
+
+  // ── CAROUSEL ──
+  let currentSlide = 0;
+  let startX = 0;
+  let isDragging = false;
+  const track = document.getElementById('carouselTrack');
+
+  function goToSlide(n) {
+    currentSlide = n;
+    track.style.transform = `translateX(-${n * 100}%)`;
+    track.style.transition = 'transform 0.4s ease';
+    document.querySelectorAll('.carousel-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === n);
+    });
+  }
+
+  if (track) {
+    track.style.display = 'flex';
+    track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; isDragging = true; });
+    track.addEventListener('touchend', e => {
+      if (!isDragging) return;
+      const diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0 && currentSlide < 2) goToSlide(currentSlide + 1);
+        else if (diff < 0 && currentSlide > 0) goToSlide(currentSlide - 1);
+      }
+      isDragging = false;
+    });
+    // Auto-advance
+    setInterval(() => goToSlide((currentSlide + 1) % 3), 4000);
+  }
+
+  // ── PRE-QUALIFIER ──
+  function preqUpdate() {
+    const income = parseFloat(document.getElementById('incomeInput').value) || 0;
+    const maxContrib = income * 0.33;
+    const maxRent = maxContrib * 12;
+    const initial = maxRent * 0.20;
+
+    document.getElementById('preqMaxRent').textContent = '₦' + Math.round(maxRent).toLocaleString('en-NG');
+    document.getElementById('preqMonthly').textContent = '₦' + Math.round(maxContrib).toLocaleString('en-NG');
+    document.getElementById('preqInitial').textContent = '₦' + Math.round(initial).toLocaleString('en-NG');
+
+    const verdict = document.getElementById('preqVerdict');
+    const verdictText = document.getElementById('preqVerdictText');
+    if (income < 30000) {
+      verdict.className = 'preq-verdict warn';
+      verdictText.textContent = 'Your income may be below our minimum threshold. Contact us to discuss options.';
+      document.querySelector('.preq-verdict-icon').textContent = '⚠️';
+    } else {
+      verdict.className = 'preq-verdict';
+      verdictText.textContent = 'You qualify. Try the calculator below to build your exact plan.';
+      document.querySelector('.preq-verdict-icon').textContent = '✅';
+    }
+
+    const slider = document.getElementById('incomeSlider');
+    if (income >= 30000 && income <= 1000000) slider.value = income;
+  }
+
+  const incomeInput = document.getElementById('incomeInput');
+  const incomeSlider = document.getElementById('incomeSlider');
+  if (incomeInput) {
+    incomeInput.addEventListener('input', preqUpdate);
+    incomeSlider.addEventListener('input', function() {
+      incomeInput.value = this.value;
+      preqUpdate();
+    });
+    preqUpdate();
+  }
+
   // Nav shrink on scroll
   window.addEventListener('scroll', () => {
     const nav = document.querySelector('nav');
     nav.style.padding = window.scrollY > 60 ? '12px 5%' : '20px 5%';
   });
 </script>
+
+<a href="https://wa.me/2349055732557?text=Hi%20RentEase%2C%20I%27d%20like%20to%20know%20more%20about%20your%20rent%20coordination%20plans." target="_blank" class="wa-float" title="Chat with us on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.882l6.19-1.624A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.793 9.793 0 01-5.003-1.374l-.36-.214-3.713.974.99-3.62-.235-.372A9.79 9.79 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+  <span class="wa-float-label">Chat with us</span>
+</a>
+
 </body>
 </html>
