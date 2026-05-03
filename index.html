@@ -831,7 +831,425 @@
     nav { padding: 16px 5%; }
   }
 
-  /* success state */
+  /* ── CALCULATOR ── */
+  .calc-section {
+    background: var(--ink);
+    color: #fff;
+    padding: 100px 5%;
+  }
+  .calc-section .section-tag { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); }
+  .calc-section .section-title { color: #fff; }
+  .calc-section .section-sub { color: rgba(255,255,255,0.55); margin-bottom: 0; }
+
+  .calc-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 60px;
+    align-items: start;
+  }
+
+  .calc-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 40px;
+  }
+
+  .calc-input-group { margin-bottom: 28px; }
+
+  .calc-label {
+    display: block;
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 10px;
+  }
+
+  .calc-input-wrap {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    transition: border-color .2s;
+  }
+  .calc-input-wrap:focus-within { border-color: var(--green-mid); }
+
+  .calc-prefix {
+    padding: 0 14px;
+    color: var(--green-mid);
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .calc-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 14px 16px;
+    width: 100%;
+  }
+  .calc-input::-webkit-outer-spin-button,
+  .calc-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+  .calc-slider {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.15);
+    outline: none;
+    margin-bottom: 8px;
+  }
+  .calc-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--green-mid);
+    cursor: pointer;
+    box-shadow: 0 0 0 4px rgba(45,155,104,0.25);
+    transition: box-shadow .2s;
+  }
+  .calc-slider::-webkit-slider-thumb:hover { box-shadow: 0 0 0 8px rgba(45,155,104,0.2); }
+
+  .calc-range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: .72rem;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .calc-note {
+    font-size: .82rem;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .calc-results {
+    background: rgba(0,0,0,0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .calc-result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    gap: 12px;
+  }
+  .calc-result-row:last-child { border-bottom: none; }
+  .calc-result-row.highlight { background: rgba(45,155,104,0.15); }
+  .calc-result-row.saved { background: rgba(200,150,42,0.1); }
+
+  .calc-result-label {
+    font-size: .82rem;
+    color: rgba(255,255,255,0.6);
+  }
+  .calc-result-row.highlight .calc-result-label { color: rgba(255,255,255,0.85); font-weight: 600; }
+
+  .calc-result-value {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #fff;
+    white-space: nowrap;
+  }
+  .calc-result-value.green { color: var(--green-mid); }
+  .calc-result-row.highlight .calc-result-value { font-size: 1.3rem; color: var(--green-mid); }
+
+  .calc-cta {
+    display: block;
+    text-align: center;
+    background: var(--green);
+    color: #fff;
+    padding: 16px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: .95rem;
+    text-decoration: none;
+    transition: all .25s;
+    box-shadow: 0 8px 24px rgba(26,107,74,0.3);
+    margin-bottom: 12px;
+  }
+  .calc-cta:hover { background: var(--green-mid); transform: translateY(-2px); }
+
+  .calc-disclaimer {
+    text-align: center;
+    font-size: .72rem;
+    color: rgba(255,255,255,0.25);
+    line-height: 1.5;
+  }
+
+  /* calc info side */
+  .calc-info { padding-top: 8px; }
+  .calc-info-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 32px;
+    line-height: 1.2;
+  }
+
+  .calc-info-steps { display: flex; flex-direction: column; gap: 24px; }
+
+  .calc-info-step {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+
+  .calc-step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--green-mid);
+    opacity: .4;
+    flex-shrink: 0;
+    width: 36px;
+    line-height: 1;
+    padding-top: 2px;
+  }
+
+  .calc-step-title {
+    font-weight: 700;
+    font-size: .95rem;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  .calc-step-text {
+    font-size: .85rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.65;
+  }
+
+  @media (max-width: 900px) {
+    .calc-wrap { grid-template-columns: 1fr; }
+  }
+
+
+  .calc-pct-wrap { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+  .calc-pct-btn {
+    flex: 1;
+    min-width: 48px;
+    padding: 9px 4px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    background: transparent;
+    color: rgba(255,255,255,0.5);
+    font-family: 'DM Sans', sans-serif;
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .calc-pct-btn.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #fff;
+  }
+  .calc-pct-btn:hover:not(.active) {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .calc-duration-wrap { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+  .calc-duration-type { display: flex; gap: 8px; margin-bottom: 4px; }
+  .calc-dur-btn {
+    flex: 1;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    background: transparent;
+    color: rgba(255,255,255,0.5);
+    font-family: 'DM Sans', sans-serif;
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .calc-dur-btn.active {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+  }
+
+  /* ── PLAN SELECTOR ── */
+  .plan-selector { margin-top: 60px; }
+  .plan-sel-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 28px;
+    text-align: center;
+  }
+  .plan-sel-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .plan-sel-card {
+    background: rgba(255,255,255,0.05);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 28px 24px;
+    cursor: pointer;
+    transition: all .25s;
+    position: relative;
+  }
+  .plan-sel-card:hover {
+    background: rgba(255,255,255,0.09);
+    border-color: var(--green-mid);
+    transform: translateY(-4px);
+  }
+  .plan-sel-card.featured {
+    border-color: var(--gold);
+    background: rgba(200,150,42,0.08);
+  }
+  .plan-sel-card.selected {
+    border-color: var(--green-mid);
+    background: rgba(45,155,104,0.12);
+  }
+  .plan-sel-popular {
+    position: absolute;
+    top: -12px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: #fff;
+    font-size: .7rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 100px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .plan-sel-badge {
+    font-weight: 700;
+    font-size: .85rem;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 8px;
+  }
+  .plan-sel-pct {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .plan-sel-label {
+    font-size: .78rem;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 16px;
+  }
+  .plan-sel-desc {
+    font-size: .85rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .plan-sel-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+  .plan-sel-list li {
+    font-size: .82rem;
+    color: rgba(255,255,255,0.5);
+  }
+  .plan-sel-cta {
+    font-weight: 700;
+    font-size: .85rem;
+    color: var(--green-mid);
+  }
+  .plan-sel-card.featured .plan-sel-cta { color: var(--gold); }
+
+  /* selected banner */
+  .calc-selected-wrap { margin-top: 48px; }
+  .calc-selected-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(45,155,104,0.15);
+    border: 1px solid rgba(45,155,104,0.3);
+    border-radius: 16px;
+    padding: 20px 28px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .calc-sel-plan-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .calc-sel-plan-desc {
+    font-size: .82rem;
+    color: rgba(255,255,255,0.5);
+  }
+  .calc-change-plan {
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.6);
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .calc-change-plan:hover { border-color: var(--green-mid); color: var(--green-mid); }
+
+  /* download button */
+  .calc-download-btn {
+    width: 100%;
+    background: var(--gold);
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .25s;
+    margin-bottom: 12px;
+    box-shadow: 0 6px 20px rgba(200,150,42,0.3);
+  }
+  .calc-download-btn:hover {
+    background: #b8851f;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(200,150,42,0.4);
+  }
+
+  @media (max-width: 900px) {
+    .plan-sel-grid { grid-template-columns: 1fr; }
+    .calc-wrap { grid-template-columns: 1fr; }
+  }
+
   .form-success {
     display: none;
     text-align: center;
@@ -859,7 +1277,7 @@
       Move into your<br>home <em>today</em>.<br>Pay on your terms.
     </h1>
     <p class="hero-sub">
-      RentEase covers your full annual rent upfront so your landlord is paid and you're settled. You repay in manageable monthly contributions — no stress, no scrambling.
+      RentEase coordinates your full annual rent so your landlord is paid and you're settled — today. You contribute back in flexible monthly or quarterly instalments that work around your income. No scrambling, no lump sum stress.
     </p>
     <div class="hero-actions">
       <a href="#apply" class="btn-primary">Get Started Free</a>
@@ -899,16 +1317,17 @@
 <div class="trust-bar">
   <div class="trust-item">No collateral required</div>
   <div class="trust-item">Landlord paid same week</div>
-  <div class="trust-item">Fixed monthly contributions</div>
+  <div class="trust-item">Monthly or quarterly options</div>
+  <div class="trust-item">Verified tenants for landlords</div>
   <div class="trust-item">Aba-based support team</div>
-  <div class="trust-item">CAC Registered</div>
+  <div class="trust-item">CAC Registered · RC-9513604</div>
 </div>
 
 <!-- PROBLEM -->
 <section class="problem" id="problem">
   <div class="section-tag">The Real Problem</div>
   <h2 class="section-title">Annual rent is a trap.<br>We built the exit.</h2>
-  <p class="section-sub">In Nigeria, landlords demand a full year's rent in one payment. Your salary doesn't work that way. Neither does your business income. RentEase bridges that gap.</p>
+  <p class="section-sub">In Nigeria, landlords demand a full year's rent in one payment. Your salary doesn't work that way. Neither does your business income. RentEase bridges that gap — for tenants and landlords alike.</p>
 
   <div class="problem-grid">
     <ul class="problem-list fade-up">
@@ -998,7 +1417,7 @@
 <section class="benefits" id="benefits">
   <div class="section-tag">Why RentEase</div>
   <h2 class="section-title">Built for how Nigerians<br>actually live.</h2>
-  <p class="section-sub">Every feature exists to solve a specific pain that millions of renters in Aba and across Nigeria experience every year.</p>
+  <p class="section-sub">Every feature exists to solve a specific pain that renters and landlords in Aba and across Nigeria experience every year.</p>
 
   <div class="benefits-grid fade-up" style="margin-top:60px">
     <div class="benefit-card featured benefit-card-inner">
@@ -1024,8 +1443,16 @@
     </div>
 
     <div class="benefit-card">
-      <span class="benefit-icon">📊</span>
-      <div class="benefit-title">Clear contribution structure</div>
+      <span class="benefit-icon">📅</span>
+      <div class="benefit-title">Flexible payment options</div>
+      <div class="benefit-text">Contribute monthly or quarterly — whichever matches your income cycle. We structure your plan around how you actually earn, not around a rigid system.</div>
+    </div>
+
+    <div class="benefit-card">
+      <span class="benefit-icon">🏘️</span>
+      <div class="benefit-title">For landlords — verified tenants guaranteed</div>
+      <div class="benefit-text">RentEase screens and verifies every tenant before placement. Landlords partnering with us receive consistent, on-time rent payments and access to a pool of verified, responsible tenants.</div>
+    </div>
       <div class="benefit-text">Know exactly what you're paying and when. No hidden fees, no shifting numbers. Your contribution plan is agreed upfront and stays fixed.</div>
     </div>
 
@@ -1037,18 +1464,254 @@
   </div>
 </section>
 
+<!-- PRE-QUALIFIER -->
+<section class="preq-section" id="qualify">
+  <div class="section-tag">Can I Qualify?</div>
+  <h2 class="section-title">How much rent can<br>RentEase coordinate for you?</h2>
+  <p class="section-sub">Enter your monthly income and we'll show you the maximum annual rent we can coordinate — and what your contributions would look like.</p>
+
+  <div class="preq-wrap fade-up">
+    <div class="preq-card">
+      <div class="preq-input-group">
+        <label class="preq-label">Your Monthly Income</label>
+        <div class="preq-input-row">
+          <span class="preq-prefix">₦</span>
+          <input type="number" id="incomeInput" class="preq-input" placeholder="150000" min="30000" max="5000000" value="150000">
+        </div>
+        <input type="range" id="incomeSlider" class="calc-slider" min="30000" max="1000000" step="5000" value="150000">
+        <div class="calc-range-labels"><span>₦30,000</span><span>₦1,000,000</span></div>
+      </div>
+
+      <div class="preq-result" id="preqResult">
+        <div class="preq-result-hero">
+          <div class="preq-result-label">Maximum Rent We Can Coordinate</div>
+          <div class="preq-result-value" id="preqMaxRent">₦594,000</div>
+        </div>
+        <div class="preq-result-rows">
+          <div class="preq-result-row">
+            <span>Recommended monthly contribution</span>
+            <span id="preqMonthly">₦49,500</span>
+          </div>
+          <div class="preq-result-row">
+            <span>That's</span>
+            <span id="preqPct" style="color:var(--green-mid);font-weight:700;">33% of your income</span>
+          </div>
+          <div class="preq-result-row">
+            <span>Initial contribution required</span>
+            <span id="preqInitial">₦49,500</span>
+          </div>
+        </div>
+        <div class="preq-verdict" id="preqVerdict">
+          <span class="preq-verdict-icon">✅</span>
+          <span id="preqVerdictText">You qualify. Try the calculator below to build your exact plan.</span>
+        </div>
+        <a href="#calculator" class="preq-cta">Build My Plan →</a>
+      </div>
+    </div>
+
+    <div class="preq-info">
+      <h3 class="preq-info-title">How we assess affordability</h3>
+      <p class="preq-info-text">We use a simple rule — your monthly contribution should not exceed 33% of your monthly income. This keeps your housing cost sustainable and your contributions consistent throughout the year.</p>
+      <div class="preq-info-points">
+        <div class="preq-point">
+          <div class="preq-point-icon">📊</div>
+          <div>
+            <div class="preq-point-title">Income-based assessment</div>
+            <div class="preq-point-text">We look at your income — not your credit score. Salary earners, traders, and business owners all qualify.</div>
+          </div>
+        </div>
+        <div class="preq-point">
+          <div class="preq-point-icon">🤝</div>
+          <div>
+            <div class="preq-point-title">Flexible for real life</div>
+            <div class="preq-point-text">If your income varies month to month we work with your average. Traders and market women welcome.</div>
+          </div>
+        </div>
+        <div class="preq-point">
+          <div class="preq-point-icon">🔒</div>
+          <div>
+            <div class="preq-point-title">No hard limits</div>
+            <div class="preq-point-text">The calculator is a guide. Your final plan is agreed during your onboarding conversation with our team.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="calc-section" id="calculator">
+  <div class="section-tag">Contribution Calculator</div>
+  <h2 class="section-title">Find your plan. See your numbers.<br>Download your summary.</h2>
+  <p class="section-sub">Start by choosing the plan that fits you. Then enter your rent and get a full personalised breakdown you can download and keep.</p>
+
+  <!-- PLAN SELECTOR -->
+  <div class="plan-selector fade-up">
+    <div class="plan-sel-title">Which plan suits you?</div>
+    <div class="plan-sel-grid">
+      <div class="plan-sel-card" id="planStarter" onclick="selectPlan('starter')">
+        <div class="plan-sel-badge">Starter</div>
+        <div class="plan-sel-pct">20%</div>
+        <div class="plan-sel-label">Initial Contribution</div>
+        <div class="plan-sel-desc">Choose this if you're tight on cash right now and need maximum flexibility in your contributions.</div>
+        <ul class="plan-sel-list">
+          <li>✓ Lower upfront commitment</li>
+          <li>✓ Spread contributions further</li>
+          <li>✓ Good for tight cash flow</li>
+        </ul>
+        <div class="plan-sel-cta">Select Starter →</div>
+      </div>
+
+      <div class="plan-sel-card featured" id="planStandard" onclick="selectPlan('standard')">
+        <div class="plan-sel-popular">Most Popular</div>
+        <div class="plan-sel-badge">Standard</div>
+        <div class="plan-sel-pct">33%</div>
+        <div class="plan-sel-label">Initial Contribution</div>
+        <div class="plan-sel-desc">Choose this if you have moderate upfront capacity and want a balanced contribution plan.</div>
+        <ul class="plan-sel-list">
+          <li>✓ Balanced upfront & monthly</li>
+          <li>✓ Most customers choose this</li>
+          <li>✓ Salary earners & traders</li>
+        </ul>
+        <div class="plan-sel-cta">Select Standard →</div>
+      </div>
+
+      <div class="plan-sel-card" id="planPriority" onclick="selectPlan('priority')">
+        <div class="plan-sel-badge">Priority</div>
+        <div class="plan-sel-pct">50%</div>
+        <div class="plan-sel-label">Initial Contribution</div>
+        <div class="plan-sel-desc">Choose this if you have strong upfront capacity and want the fastest landlord coordination.</div>
+        <ul class="plan-sel-list">
+          <li>✓ Fastest landlord payment</li>
+          <li>✓ Lower remaining contributions</li>
+          <li>✓ Priority processing</li>
+        </ul>
+        <div class="plan-sel-cta">Select Priority →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SELECTED PLAN SUMMARY + CALCULATOR -->
+  <div class="calc-selected-wrap" id="calcSelectedWrap" style="display:none;">
+    <div class="calc-selected-banner" id="calcSelectedBanner">
+      <div>
+        <div class="calc-sel-plan-name" id="calcSelPlanName">Standard Plan</div>
+        <div class="calc-sel-plan-desc" id="calcSelPlanDesc">33% initial contribution · Balanced payments</div>
+      </div>
+      <button class="calc-change-plan" onclick="changePlan()">Change Plan</button>
+    </div>
+
+    <div class="calc-wrap fade-up">
+      <div class="calc-card">
+        <div class="calc-input-group">
+          <label class="calc-label">Annual Rent Amount</label>
+          <div class="calc-input-wrap">
+            <span class="calc-prefix">₦</span>
+            <input type="number" id="rentAmount" class="calc-input" placeholder="480000" min="100000" max="5000000" value="480000">
+          </div>
+          <input type="range" id="rentSlider" class="calc-slider" min="100000" max="3000000" step="10000" value="480000">
+          <div class="calc-range-labels">
+            <span>₦100,000</span>
+            <span>₦3,000,000</span>
+          </div>
+        </div>
+
+        <div class="calc-input-group">
+          <label class="calc-label">Contribution Duration</label>
+          <div class="calc-duration-wrap">
+            <div class="calc-duration-type">
+              <button class="calc-dur-btn active" id="btnMonths" onclick="setDurType('months')">Months</button>
+              <button class="calc-dur-btn" id="btnWeeks" onclick="setDurType('weeks')">Weeks</button>
+            </div>
+            <div class="calc-input-wrap" style="margin-bottom:0">
+              <input type="number" id="durAmount" class="calc-input" value="12" min="1" max="104">
+              <span style="padding:0 14px;color:rgba(255,255,255,0.4);font-size:.85rem;" id="durLabel">months</span>
+            </div>
+          </div>
+          <input type="range" id="durSlider" class="calc-slider" min="1" max="24" step="1" value="12">
+          <div class="calc-range-labels">
+            <span id="durMin">1 month</span>
+            <span id="durMax">24 months</span>
+          </div>
+        </div>
+
+        <div class="calc-results">
+          <div class="calc-result-row highlight">
+            <div class="calc-result-label">Contribution per Period</div>
+            <div class="calc-result-value" id="monthlyContrib">₦44,000</div>
+          </div>
+          <div class="calc-result-row">
+            <div class="calc-result-label">Initial Contribution (<span id="pctLabel">33</span>% upfront)</div>
+            <div class="calc-result-value" id="initialContrib">₦176,000</div>
+          </div>
+          <div class="calc-result-row">
+            <div class="calc-result-label">Service Coordination Fee (18%)</div>
+            <div class="calc-result-value" id="serviceFee">₦48,000</div>
+          </div>
+          <div class="calc-result-row">
+            <div class="calc-result-label">Total Coordination Amount</div>
+            <div class="calc-result-value" id="totalAmount">₦528,000</div>
+          </div>
+          <div class="calc-result-row saved">
+            <div class="calc-result-label">💚 Lump sum you avoid</div>
+            <div class="calc-result-value green" id="lumpSum">₦480,000</div>
+          </div>
+        </div>
+
+        <button onclick="downloadSummary()" class="calc-download-btn">⬇ Download My Plan Summary</button>
+        <a href="#apply" class="calc-cta">Start My Application →</a>
+        <p class="calc-disclaimer">Figures are estimates. Your exact contribution plan is confirmed during onboarding. RC-9513604.</p>
+      </div>
+
+      <div class="calc-info">
+        <h3 class="calc-info-title">How your plan works</h3>
+        <div class="calc-info-steps">
+          <div class="calc-info-step">
+            <div class="calc-step-num">01</div>
+            <div>
+              <div class="calc-step-title">You pay initial contribution</div>
+              <div class="calc-step-text">Your selected upfront percentage activates your plan and confirms commitment before we coordinate with your landlord.</div>
+            </div>
+          </div>
+          <div class="calc-info-step">
+            <div class="calc-step-num">02</div>
+            <div>
+              <div class="calc-step-title">We pay your landlord in full</div>
+              <div class="calc-step-text">RentEase coordinates full annual rent payment to your landlord. You get your receipt. Your home is secured.</div>
+            </div>
+          </div>
+          <div class="calc-info-step">
+            <div class="calc-step-num">03</div>
+            <div>
+              <div class="calc-step-title">You contribute for remaining periods</div>
+              <div class="calc-step-text">The remaining balance is spread across your chosen periods. Fixed, predictable, no surprises.</div>
+            </div>
+          </div>
+          <div class="calc-info-step">
+            <div class="calc-step-num">04</div>
+            <div>
+              <div class="calc-step-title">Cycle closes. Renew with ease.</div>
+              <div class="calc-step-text">At the end of your cycle, RentEase reaches out proactively to plan your renewal before pressure builds.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PLANS -->
 <section class="plans" id="plans">
   <div class="section-tag">Contribution Plans</div>
   <h2 class="section-title">One plan for every renter.</h2>
-  <p class="section-sub">Choose the structure that fits your income pattern. All plans cover your full annual rent upfront.</p>
+  <p class="section-sub">Choose the contribution structure that fits your income pattern — monthly or quarterly. All plans coordinate your full annual rent upfront so your landlord is paid immediately.</p>
 
   <div class="plans-grid fade-up" style="margin-top:60px">
     <div class="plan-card">
       <div class="plan-name">Starter</div>
       <div class="plan-desc">Best for renters with modest annual rent and steady income looking for a simple monthly structure.</div>
-      <div class="plan-feature"><span class="plan-check">✓</span> Rent up to ₦300,000/yr covered</div>
-      <div class="plan-feature"><span class="plan-check">✓</span> Fixed monthly contributions</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Rent up to ₦300,000/yr coordinated</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Flexible monthly contributions</div>
       <div class="plan-feature"><span class="plan-check">✓</span> Same-week landlord payment</div>
       <div class="plan-feature"><span class="plan-check">✓</span> Dedicated support contact</div>
       <a href="#apply" class="plan-cta plan-cta-outline">Apply Now</a>
@@ -1058,8 +1721,8 @@
       <div class="plan-badge">Most Popular</div>
       <div class="plan-name">Standard</div>
       <div class="plan-desc">Our most used plan. Covers the typical Aba rental and offers flexible contribution timing.</div>
-      <div class="plan-feature"><span class="plan-check">✓</span> Rent ₦300k–₦700,000/yr covered</div>
-      <div class="plan-feature"><span class="plan-check">✓</span> Monthly or split contributions</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Rent ₦300k–₦700,000/yr coordinated</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Monthly or quarterly contributions</div>
       <div class="plan-feature"><span class="plan-check">✓</span> Priority landlord coordination</div>
       <div class="plan-feature"><span class="plan-check">✓</span> Renewal pre-planning included</div>
       <div class="plan-feature"><span class="plan-check">✓</span> WhatsApp support line</div>
@@ -1076,6 +1739,43 @@
       <a href="#apply" class="plan-cta plan-cta-outline">Apply Now</a>
     </div>
   </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-tag">Real Stories</div>
+  <h2 class="section-title">Aba tenants who stopped<br>scrambling for rent.</h2>
+  <p class="section-sub">These are the people RentEase exists for.</p>
+
+  <div class="testi-grid fade-up">
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <div class="testi-text">My landlord increased my rent from ₦280,000 to ₦380,000 at renewal and gave me three weeks to pay. I had nothing close to that amount saved. A friend told me about RentEase. Within five days my landlord had received the full payment and I was settled. I pay ₦38,000 a month — something I can actually manage from my shop income. I wish I had known about this years ago."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">AN</div>
+        <div>
+          <div class="testi-name">Adaeze N.</div>
+          <div class="testi-detail">Fabrics trader · Ariaria Market, Aba</div>
+        </div>
+      </div>
+      <div class="testi-tag">Rent coordinated: ₦380,000</div>
+    </div>
+
+    <div class="testi-card featured">
+      <div class="testi-quote">"</div>
+      <div class="testi-text">I had been living in fear of my landlord for six months. He knew I couldn't gather the full rent so he kept threatening to bring in a new tenant. My salary is ₦95,000 a month — there was no way I could produce ₦450,000 at once. RentEase paid my landlord everything and now I contribute ₦46,000 monthly. My landlord even asked me for their contact so he can refer them to other tenants in the compound."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">EO</div>
+        <div>
+          <div class="testi-name">Emeka O.</div>
+          <div class="testi-detail">Civil servant · GRA, Aba</div>
+        </div>
+      </div>
+      <div class="testi-tag">Rent coordinated: ₦450,000</div>
+    </div>
+  </div>
+
+  <div class="testi-disclaimer">Stories reflect real customer experiences. Names abbreviated for privacy.</div>
 </section>
 
 <!-- APPLY FORM -->
@@ -1137,7 +1837,7 @@
   <div class="faq-grid fade-up" style="margin-top:60px">
     <div class="faq-item">
       <div class="faq-q">Is RentEase a loan or a bank?</div>
-      <div class="faq-a">No. RentEase is a rent payment coordination and contribution management service. We structure and manage your rent payment plan — we are not a bank, lender, or financial institution.</div>
+      <div class="faq-a">No. RentEase is a rent payment coordination and flexible contribution management service. We help structure and facilitate rent payments between tenants and landlords — we are not a bank, lender, or financial institution. No deposit-taking activity is conducted.</div>
     </div>
 
     <div class="faq-item">
@@ -1161,7 +1861,14 @@
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">Is there a service fee?</div>
+      <div class="faq-q">I am a landlord. How does RentEase help me?</div>
+      <div class="faq-a">RentEase partners with landlords to provide verified tenants and guarantee consistent rent payments. We screen every tenant before placement and coordinate payments so you receive your rent on time without chasing anyone. Contact us to register your property.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What flexible payment options are available?</div>
+      <div class="faq-a">We offer monthly and quarterly contribution structures depending on your income pattern. During your application our team will discuss which option suits you best and build your plan accordingly.</div>
+    </div>
       <div class="faq-a">Yes. RentEase charges a transparent, one-time service coordination fee agreed upfront as part of your plan. It is included in your contribution calculation — no hidden charges.</div>
     </div>
   </div>
@@ -1171,7 +1878,7 @@
 <footer>
   <div class="footer-brand">
     <div class="logo">Rent<span>Ease</span></div>
-    <p>RentEase helps renters in Aba and across Nigeria access structured, manageable rent payment plans — so that a good home is never out of reach because of a lump-sum problem.</p>
+    <p>RentEase Services Limited helps renters in Aba and across Nigeria access flexible, structured rent contribution plans — and connects landlords with verified tenants who pay consistently. A good home should never be out of reach because of a lump-sum problem.</p>
   </div>
 
   <div>
@@ -1179,6 +1886,7 @@
     <ul class="footer-links">
       <li><a href="#how">How It Works</a></li>
       <li><a href="#benefits">Benefits</a></li>
+      <li><a href="#calculator">Calculator</a></li>
       <li><a href="#plans">Plans</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#apply">Apply</a></li>
@@ -1189,15 +1897,15 @@
     <div class="footer-col-title">Contact</div>
     <ul class="footer-links">
       <li><a href="https://wa.me/2349055732557" target="_blank">WhatsApp Us</a></li>
-      <li><a href="#">Email Support</a></li>
+      <li><a href="mailto:hello@renteaseservices.com">hello@renteaseservices.com</a></li>
       <li><a href="#">Aba Office</a></li>
     </ul>
   </div>
 </footer>
 
 <div class="footer-bottom">
-  <p>© 2025 RentEase. CAC Registered. Aba, Abia State, Nigeria.</p>
-  <p class="footer-disclaimer">RentEase is a rent payment coordination and contribution management service. We are not a bank, microfinance institution, or financial lender. No deposit-taking activity is conducted.</p>
+  <p>© 2026 RentEase Services Limited · RC-9513604 · Aba, Abia State, Nigeria.</p>
+  <p class="footer-disclaimer">RentEase is a rent payment coordination and flexible contribution management service. We are not a bank, microfinance institution, or financial lender. No deposit-taking activity is conducted. All transactions are rent coordination arrangements between tenants and landlords.</p>
 </div>
 
 <script>
@@ -1209,6 +1917,236 @@
   }, { threshold: 0.12 });
 
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // ── CALCULATOR ──
+  let durType = 'months';
+  let initPct = 33;
+  let selectedPlan = '';
+
+  const plans = {
+    starter:  { name: 'Starter Plan',  pct: 20, desc: '20% initial contribution · Maximum flexibility' },
+    standard: { name: 'Standard Plan', pct: 33, desc: '33% initial contribution · Balanced payments' },
+    priority: { name: 'Priority Plan', pct: 50, desc: '50% initial contribution · Fastest coordination' },
+  };
+
+  function fmt(n) {
+    return '₦' + Math.round(n).toLocaleString('en-NG');
+  }
+
+  function selectPlan(plan) {
+    selectedPlan = plan;
+    const p = plans[plan];
+    initPct = p.pct;
+
+    document.querySelectorAll('.plan-sel-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('plan' + plan.charAt(0).toUpperCase() + plan.slice(1)).classList.add('selected');
+
+    document.getElementById('calcSelPlanName').textContent = p.name;
+    document.getElementById('calcSelPlanDesc').textContent = p.desc;
+    document.getElementById('pctLabel').textContent = p.pct;
+    document.getElementById('calcSelectedWrap').style.display = 'block';
+    document.getElementById('calcSelectedWrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    calcUpdate();
+  }
+
+  function changePlan() {
+    document.getElementById('calcSelectedWrap').style.display = 'none';
+    document.querySelectorAll('.plan-sel-card').forEach(c => c.classList.remove('selected'));
+    document.querySelector('.plan-selector').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function setDurType(type) {
+    durType = type;
+    document.getElementById('btnMonths').classList.toggle('active', type === 'months');
+    document.getElementById('btnWeeks').classList.toggle('active', type === 'weeks');
+    document.getElementById('durLabel').textContent = type;
+    const slider = document.getElementById('durSlider');
+    const durInput = document.getElementById('durAmount');
+    if (type === 'months') {
+      slider.max = 24; slider.min = 1; slider.step = 1;
+      document.getElementById('durMin').textContent = '1 month';
+      document.getElementById('durMax').textContent = '24 months';
+      durInput.value = Math.min(durInput.value, 24);
+    } else {
+      slider.max = 104; slider.min = 1; slider.step = 1;
+      document.getElementById('durMin').textContent = '1 week';
+      document.getElementById('durMax').textContent = '104 weeks';
+      durInput.value = Math.min(durInput.value * 4, 104);
+    }
+    slider.value = durInput.value;
+    calcUpdate();
+  }
+
+  function calcUpdate() {
+    const rent = parseFloat(document.getElementById('rentAmount').value) || 0;
+    const dur = parseFloat(document.getElementById('durAmount').value) || 1;
+    const initial = rent * (initPct / 100);
+    const remaining = rent - initial;
+    const fee = remaining * 0.18;
+    const total = rent + fee;
+    const perPeriod = (remaining + fee) / dur;
+
+    document.getElementById('serviceFee').textContent = fmt(fee);
+    document.getElementById('totalAmount').textContent = fmt(total);
+    document.getElementById('monthlyContrib').textContent = fmt(perPeriod);
+    document.getElementById('initialContrib').textContent = fmt(initial);
+    document.getElementById('lumpSum').textContent = fmt(rent);
+
+    const slider = document.getElementById('rentSlider');
+    if (rent >= 100000 && rent <= 3000000) slider.value = rent;
+  }
+
+  function downloadSummary() {
+    const rent = parseFloat(document.getElementById('rentAmount').value) || 0;
+    const dur = parseFloat(document.getElementById('durAmount').value) || 1;
+    const initial = rent * (initPct / 100);
+    const remaining = rent - initial;
+    const fee = remaining * 0.18;
+    const total = rent + fee;
+    const perPeriod = (remaining + fee) / dur;
+    const periodLabel = durType === 'weeks' ? 'Week' : 'Month';
+    const planName = selectedPlan ? plans[selectedPlan].name : 'Standard Plan';
+
+    // Build period breakdown table rows
+    let balance = total;
+    let rows = '';
+    // Initial contribution row
+    balance -= initial;
+    rows += `<tr style="background:#f0fdf4;">
+      <td style="padding:10px 14px;border-bottom:1px solid #e5e7eb;font-weight:600;">Initial</td>
+      <td style="padding:10px 14px;border-bottom:1px solid #e5e7eb;text-align:right;font-weight:600;color:#1A6B4A;">₦${Math.round(initial).toLocaleString('en-NG')}</td>
+      <td style="padding:10px 14px;border-bottom:1px solid #e5e7eb;text-align:right;">₦${Math.round(balance).toLocaleString('en-NG')}</td>
+    </tr>`;
+
+    for (let i = 1; i <= dur; i++) {
+      const pay = Math.min(perPeriod, balance);
+      balance = Math.max(0, balance - perPeriod);
+      const rowBg = i % 2 === 0 ? '#f9fafb' : '#ffffff';
+      rows += `<tr style="background:${rowBg};">
+        <td style="padding:10px 14px;border-bottom:1px solid #e5e7eb;">${periodLabel} ${i}</td>
+        <td style="padding:10px 14px;border-bottom:1px solid #e5e7eb;text-align:right;">₦${Math.round(perPeriod).toLocaleString('en-NG')}</td>
+        <td style="padding:10px 14px;border-bottom:1px solid #e5e7eb;text-align:right;">₦${Math.round(balance).toLocaleString('en-NG')}</td>
+      </tr>`;
+    }
+
+    const html = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>RentEase Plan Summary</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; color: #0D1B2A; background: #fff; padding: 40px; }
+  .header { background: #1A6B4A; color: white; padding: 28px 32px; border-radius: 12px; margin-bottom: 28px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-size: 1.8rem; font-weight: 900; }
+  .logo span { color: #C8962A; }
+  .rc { font-size: .8rem; opacity: .7; margin-top: 4px; }
+  .plan-badge { background: rgba(255,255,255,0.2); padding: 8px 18px; border-radius: 100px; font-weight: 700; font-size: .9rem; }
+  .summary-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; color: #1A6B4A; }
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px; }
+  .summary-item { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px 18px; }
+  .summary-label { font-size: .75rem; color: #6B7280; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
+  .summary-value { font-size: 1.1rem; font-weight: 700; color: #0D1B2A; }
+  .summary-item.highlight { background: #E8F5EE; border-color: #1A6B4A; }
+  .summary-item.highlight .summary-value { color: #1A6B4A; font-size: 1.3rem; }
+  .summary-item.gold { background: #FDF3DC; border-color: #C8962A; }
+  .summary-item.gold .summary-value { color: #C8962A; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 28px; }
+  th { background: #1A6B4A; color: white; padding: 12px 14px; text-align: left; font-size: .85rem; }
+  th:not(:first-child) { text-align: right; }
+  .disclaimer { font-size: .72rem; color: #9CA3AF; line-height: 1.6; text-align: center; border-top: 1px solid #e5e7eb; padding-top: 16px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <div class="logo">Rent<span>Ease</span></div>
+    <div class="rc">Rent Ease Services Limited · RC-9513604</div>
+  </div>
+  <div class="plan-badge">${planName}</div>
+</div>
+
+<div class="summary-title">Your Contribution Plan Summary</div>
+
+<div class="summary-grid">
+  <div class="summary-item highlight">
+    <div class="summary-label">Contribution per ${periodLabel}</div>
+    <div class="summary-value">₦${Math.round(perPeriod).toLocaleString('en-NG')}</div>
+  </div>
+  <div class="summary-item gold">
+    <div class="summary-label">Initial Contribution (${initPct}%)</div>
+    <div class="summary-value">₦${Math.round(initial).toLocaleString('en-NG')}</div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-label">Annual Rent Amount</div>
+    <div class="summary-value">₦${Math.round(rent).toLocaleString('en-NG')}</div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-label">Service Coordination Fee (18%)</div>
+    <div class="summary-value">₦${Math.round(fee).toLocaleString('en-NG')}</div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-label">Total Coordination Amount</div>
+    <div class="summary-value">₦${Math.round(total).toLocaleString('en-NG')}</div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-label">Duration</div>
+    <div class="summary-value">${dur} ${durType}</div>
+  </div>
+</div>
+
+<div class="summary-title">Payment Breakdown</div>
+<table>
+  <thead>
+    <tr>
+      <th>Period</th>
+      <th style="text-align:right;">Payment (₦)</th>
+      <th style="text-align:right;">Remaining Balance (₦)</th>
+    </tr>
+  </thead>
+  <tbody>${rows}</tbody>
+</table>
+
+<div class="disclaimer">
+  This summary is an estimate generated on ${new Date().toLocaleDateString('en-NG', {day:'numeric',month:'long',year:'numeric'})}. 
+  Figures are indicative and subject to confirmation during onboarding. RentEase is a rent payment coordination and contribution management service. 
+  We are not a bank, microfinance institution, or financial lender. · WhatsApp: 09055732557 · RC-9513604 · Aba, Abia State, Nigeria.
+</div>
+</body>
+</html>`;
+
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `RentEase_${planName.replace(' ','_')}_Summary.html`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  const rentInput = document.getElementById('rentAmount');
+  const rentSlider = document.getElementById('rentSlider');
+
+  if (rentInput) {
+    rentInput.addEventListener('input', calcUpdate);
+    rentSlider.addEventListener('input', function() {
+      rentInput.value = this.value;
+      calcUpdate();
+    });
+  }
+
+  document.addEventListener('input', function(e) {
+    if (e.target.id === 'durAmount') {
+      document.getElementById('durSlider').value = e.target.value;
+      calcUpdate();
+    }
+    if (e.target.id === 'durSlider') {
+      document.getElementById('durAmount').value = e.target.value;
+      calcUpdate();
+    }
+  });
+
+  calcUpdate();
 
   // Nav shrink on scroll
   window.addEventListener('scroll', () => {
