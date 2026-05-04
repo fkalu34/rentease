@@ -24,13 +24,14 @@
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100vw; }
 
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--cream);
     color: var(--ink);
     overflow-x: hidden;
+    max-width: 100vw;
   }
 
   /* ── NOISE TEXTURE OVERLAY ── */
@@ -82,38 +83,47 @@
     gap: 40px;
     position: relative;
     overflow: hidden;
+    width: 100%;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='80' opacity='0.025'%3E%3Cpolyline points='0,80 20,40 40,60 60,20 80,50 100,30 120,60 120,80' fill='none' stroke='%231A6B4A' stroke-width='2'/%3E%3C/svg%3E");
     background-size: 120px 80px;
+  }
+
+  .hero-content {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
   }
 
   @media (max-width: 1024px) {
     .hero {
       grid-template-columns: 1fr;
       padding-top: 100px;
-      gap: 40px;
+      gap: 32px;
       min-height: auto;
       padding-bottom: 60px;
-      overflow-x: hidden;
     }
     .hero-content {
       width: 100%;
       max-width: 100%;
-      overflow: hidden;
     }
     .hero-sub {
-      max-width: 100%;
+      max-width: 100% !important;
+      width: 100%;
     }
     .hero-actions {
       flex-direction: column;
-      align-items: flex-start;
+      align-items: stretch;
+      width: 100%;
     }
     .btn-primary, .btn-ghost {
       width: 100%;
       text-align: center;
+      display: block;
     }
     .hero-visual {
-      height: 300px;
+      height: 280px;
       max-width: 100%;
+      width: 100%;
       justify-self: stretch;
     }
     .hero::after { display: none; }
@@ -1833,7 +1843,7 @@
 <!-- NAV -->
 <nav>
   <div class="logo">Rent<span>Ease</span></div>
-  <a href="#apply" class="nav-cta">Apply Now</a>
+  <a href="#calculator" class="nav-cta">Apply Now</a>
 </nav>
 
 <!-- HERO -->
@@ -1847,7 +1857,7 @@
       RentEase coordinates your full annual rent so your landlord is paid and you're settled — today. You contribute back in flexible monthly or quarterly instalments that work around your income. No scrambling, no lump sum stress.
     </p>
     <div class="hero-actions">
-      <a href="#apply" class="btn-primary">Get Started Free</a>
+      <a href="#calculator" class="btn-primary">Get Started Free</a>
       <a href="#how" class="btn-ghost">See How It Works</a>
     </div>
   </div>
@@ -2400,57 +2410,6 @@
   <div class="testi-disclaimer">Stories reflect real customer experiences. Names abbreviated for privacy.</div>
 </section>
 
-<!-- APPLY FORM -->
-<section class="apply" id="apply">
-  <div class="section-tag" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7)">Apply Today</div>
-  <h2 class="section-title">Your landlord paid.<br>Your home secured.</h2>
-  <p class="section-sub">Fill in the form and our team will reach out within 24 hours to confirm your plan and begin the process.</p>
-
-  <div class="form-wrap">
-    <div class="form-card fade-up" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 40px;gap:28px;">
-      <div style="font-size:3.5rem;">📋</div>
-      <h3 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:#fff;line-height:1.2;">Ready to get started?</h3>
-      <p style="color:rgba(255,255,255,0.55);font-size:.95rem;line-height:1.7;max-width:360px;">Our application takes less than 3 minutes. Have your rent amount and landlord details ready.</p>
-      <a
-        href="https://docs.google.com/forms/d/e/1FAIpQLSfa3n84Nae6t9BzEWzAJbiesGgWwTPG6lzmwuFUvHUCl74ibw/viewform"
-        target="_blank"
-        style="display:inline-block;background:var(--green);color:#fff;padding:18px 48px;border-radius:100px;font-size:1.05rem;font-weight:700;text-decoration:none;box-shadow:0 8px 28px rgba(26,107,74,0.35);transition:all .25s;"
-        onmouseover="this.style.background='#2D9B68';this.style.transform='translateY(-2px)'"
-        onmouseout="this.style.background='#1A6B4A';this.style.transform='translateY(0)'"
-      >Start My Application →</a>
-      <p style="color:rgba(255,255,255,0.3);font-size:.78rem;">🔒 Your information is private and never shared with third parties.</p>
-    </div>
-
-    <div class="form-info fade-up" style="transition-delay:.2s">
-      <h3 class="form-info-title">Why people choose RentEase to secure their homes.</h3>
-      <p class="form-info-text">We've heard the same story too many times — a good tenant loses their home not because they can't afford it, but because they can't produce an entire year's rent in one payment. That's the problem we exist to solve.</p>
-
-      <ul class="reassurance-list">
-        <li class="reassurance-item">
-          <div class="reassurance-check">✓</div>
-          <div class="reassurance-text"><strong>No collateral needed.</strong> We don't ask you to put up land or property to access our plans.</div>
-        </li>
-        <li class="reassurance-item">
-          <div class="reassurance-check">✓</div>
-          <div class="reassurance-text"><strong>Your landlord is paid directly.</strong> We coordinate with your landlord and ensure they receive payment. You get your receipt same day.</div>
-        </li>
-        <li class="reassurance-item">
-          <div class="reassurance-check">✓</div>
-          <div class="reassurance-text"><strong>Transparent structure, always.</strong> Your contribution plan is written, agreed, and fixed before we begin. No surprises mid-year.</div>
-        </li>
-        <li class="reassurance-item">
-          <div class="reassurance-check">✓</div>
-          <div class="reassurance-text"><strong>We're Aba-based.</strong> Our team understands the local rental market, the landlord culture, and your challenges first-hand.</div>
-        </li>
-        <li class="reassurance-item">
-          <div class="reassurance-check">✓</div>
-          <div class="reassurance-text"><strong>Inflation works for you, not against you.</strong> Pay today's price. Live in it for a year. Beat the market.</div>
-        </li>
-      </ul>
-    </div>
-  </div>
-</section>
-
 <!-- FAQ -->
 <section class="faq" id="faq">
   <div class="section-tag">Questions</div>
@@ -2512,7 +2471,7 @@
       <li><a href="#calculator">Calculator</a></li>
       <li><a href="#testimonials">Stories</a></li>
       <li><a href="#faq">FAQ</a></li>
-      <li><a href="#apply">Apply</a></li>
+      <li><a href="#calculator">Apply</a></li>
     </ul>
   </div>
 
