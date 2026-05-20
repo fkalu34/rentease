@@ -740,15 +740,30 @@ function renderPortal(c,fin){
   if(!customerId){showError("🔗","No Plan Found","This link doesn't include a customer ID. Please contact RentEase for your correct portal link.");return;}
   let db;
   try{db=await initFirebase();}catch(e){showError("📡","Connection Failed","Could not connect to RentEase servers. Please check your internet connection and try again.");return;}
-  let snap;
-  try{snap=await db.collection(FS_COLLECTION).doc(FS_DOC).get();}catch(e){showError("☁️","Could Not Load Data","There was a problem loading your plan. Please try again or contact RentEase directly.");return;}
-  if(!snap.exists){showError("📂","No Data Found","RentEase hasn't set up cloud data yet. Please contact RentEase directly.");return;}
-  const data=snap.data();
-  const customers=Array.isArray(data.customers)?data.customers:[];
-  const customer=customers.find(c=>c.id===customerId);
-  if(!customer){showError("👤","Plan Not Found","We couldn't find a rent plan matching this link. It may have been removed or the link may be incorrect. Please contact RentEase.");return;}
-  const fin=calcCustomer(customer);
-  renderPortal(customer,fin);
+
+  // REAL-TIME: Use onSnapshot instead of get() so the portal updates
+  // automatically the moment you mark a payment in the tracker.
+  // No refresh needed — customer sees their latest data within seconds.
+  try{
+    db.collection(FS_COLLECTION).doc(FS_DOC).onSnapshot(snap=>{
+      if(!snap.exists){showError("📂","No Data Found","RentEase hasn't set up cloud data yet. Please contact RentEase directly.");return;}
+      const data=snap.data();
+      const customers=Array.isArray(data.customers)?data.customers:[];
+      const customer=customers.find(c=>c.id===customerId);
+      if(!customer){showError("👤","Plan Not Found","We couldn't find a rent plan matching this link. It may have been removed or the link may be incorrect. Please contact RentEase.");return;}
+      const fin=calcCustomer(customer);
+      // Hide all screens before re-rendering so transitions are clean
+      document.getElementById("portal").style.display="none";
+      document.getElementById("completion-screen").style.display="none";
+      renderPortal(customer,fin);
+    },err=>{
+      // onSnapshot error — fall back gracefully
+      showError("☁️","Could Not Load Data","There was a problem loading your plan. Please try again or contact RentEase directly.");
+      console.warn("[RentEase Portal] onSnapshot error:",err.message);
+    });
+  }catch(e){
+    showError("☁️","Could Not Load Data","There was a problem loading your plan. Please try again or contact RentEase directly.");
+  }
 })();
 </script>
 </body>
