@@ -42,7 +42,7 @@ body{background:#0a1628;font-family:'Segoe UI',system-ui,sans-serif;color:#e2e8f
       <div style="font-weight:800;font-size:16px;margin-bottom:8px;" id="error-title">Something went wrong</div>
       <div style="color:#4a6080;font-size:13px;line-height:1.6;" id="error-msg">Please contact RentEase for your portal link.</div>
     </div>
-    <a id="error-wa" href="https://wa.me/2349055732557" target="_blank"
+    <a id="error-wa" href="https://wa.me/2348000000000" target="_blank"
        style="display:block;margin-top:16px;background:#25D366;color:#fff;border-radius:12px;padding:14px;font-weight:800;font-size:14px;text-decoration:none;">
       💬 Contact RentEase on WhatsApp
     </a>
@@ -138,85 +138,19 @@ body{background:#0a1628;font-family:'Segoe UI',system-ui,sans-serif;color:#e2e8f
       <div id="schedule-rows"></div>
     </div>
 
-    <!-- Paystack Direct Debit -->
-    <div style="background:#0f2040;border-radius:14px;padding:18px;border:1px solid #1a2d45;margin-bottom:10px;">
-      <div style="font-weight:800;font-size:14px;margin-bottom:6px;">💳 Set Up Automatic Payment</div>
-      <div style="color:#4a6080;font-size:13px;line-height:1.6;margin-bottom:14px;">
-        Authorise RentEase to debit your account automatically on your due date — no transfers, no stress. Your money moves only on the agreed date, for the agreed amount.
-      </div>
-      <div style="background:#0a1628;border-radius:10px;padding:12px;border:1px solid #1a3a5f;margin-bottom:14px;">
-        <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;">
-          <span style="color:#22c55e;font-size:13px;flex-shrink:0;">✓</span>
-          <span style="color:#94a3b8;font-size:12px;">Debited once per period — <strong style="color:#e2e8f0;">no surprise charges</strong></span>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;">
-          <span style="color:#22c55e;font-size:13px;flex-shrink:0;">✓</span>
-          <span style="color:#94a3b8;font-size:12px;">You can cancel the mandate at any time through your bank</span>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:8px;">
-          <span style="color:#22c55e;font-size:13px;flex-shrink:0;">✓</span>
-          <span style="color:#94a3b8;font-size:12px;">Secured by <strong style="color:#e2e8f0;">Paystack</strong> — Nigeria's leading payment processor</span>
-        </div>
-      </div>
-      <a href="https://paystack.shop/pay/rrentease" target="_blank"
-         style="display:flex;align-items:center;justify-content:center;gap:10px;background:#0BA4DB;color:#fff;border-radius:10px;padding:14px;font-weight:800;font-size:14px;text-decoration:none;">
-        <span style="font-size:18px;">🔒</span>
-        Authorise Direct Debit via Paystack
-      </a>
-      <div style="color:#334155;font-size:10px;text-align:center;margin-top:8px;">
-        You will be redirected to Paystack's secure page. RentEase does not store your card or bank details.
-      </div>
-    </div>
-
-    <!-- WhatsApp CTA: General contact -->
+    <!-- WhatsApp CTA -->
     <a id="wa-link" href="#" target="_blank"
-       style="display:flex;align-items:center;justify-content:center;gap:10px;background:#25D366;color:#fff;border-radius:14px;padding:16px;font-weight:800;font-size:15px;text-decoration:none;margin-bottom:10px;">
+       style="display:flex;align-items:center;justify-content:center;gap:10px;background:#25D366;color:#fff;border-radius:14px;padding:16px;font-weight:800;font-size:15px;text-decoration:none;margin-bottom:20px;">
       <span style="font-size:20px;">💬</span>
       Contact RentEase on WhatsApp
     </a>
 
-    <!-- I've Paid: Customer notifies RentEase after making payment -->
-    <a id="ive-paid-link" href="#" target="_blank"
-       style="display:flex;align-items:center;justify-content:center;gap:10px;background:#0d2b1a;color:#22c55e;border:2px solid #22c55e44;border-radius:14px;padding:14px;font-weight:800;font-size:14px;text-decoration:none;margin-bottom:20px;">
-      <span style="font-size:18px;">✅</span>
-      I've Just Made My Payment
-    </a>
-
-    <!-- Add to Calendar -->
-    <div style="background:#0f2040;border-radius:14px;padding:18px;border:1px solid #1a2d45;margin-bottom:12px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
-        <div>
-          <div style="font-weight:800;font-size:14px;margin-bottom:4px;">📅 Never Miss a Payment</div>
-          <div style="color:#4a6080;font-size:12px;line-height:1.5;">Save all your upcoming due dates directly to your phone calendar with automatic reminders.</div>
-        </div>
-        <button id="cal-btn"
-          style="background:#60a5fa20;color:#60a5fa;border:1px solid #60a5fa40;border-radius:10px;padding:11px 14px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;">
-          + Add Dates
-        </button>
-      </div>
-      <div id="cal-done" style="display:none;color:#22c55e;font-size:12px;margin-top:10px;font-weight:600;">
-        ✓ Calendar file downloaded — open it on your phone to import all dates.
-      </div>
-    </div>
-
-    <!-- Referral nudge -->
-    <div style="background:#0f2040;border-radius:14px;padding:18px;border:1px solid #1a2d45;margin-bottom:24px;">
-      <div style="font-weight:800;font-size:14px;margin-bottom:5px;">🤝 Know Someone Who Needs This?</div>
-      <div style="color:#4a6080;font-size:13px;line-height:1.6;margin-bottom:14px;">
-        If you have a friend, colleague, or family member struggling with annual rent in Aba — share RentEase with them. They pay monthly. We handle the landlord.
-      </div>
-      <a id="referral-link" href="#" target="_blank"
-         style="display:flex;align-items:center;justify-content:center;gap:8px;background:#f59e0b18;color:#f59e0b;border:1px solid #f59e0b40;border-radius:10px;padding:13px;font-weight:800;font-size:13px;text-decoration:none;">
-        <span style="font-size:16px;">📲</span> Share RentEase with a Friend
-      </a>
-    </div>
-
     <!-- Footer -->
     <div style="text-align:center;padding-bottom:16px;">
-      <div style="font-weight:900;font-size:16px;margin-bottom:6px;">
+      <div style="color:#22c55e;font-weight:900;font-size:16px;margin-bottom:4px;">
         <span style="color:#22c55e">Rent</span><span style="color:#f59e0b">Ease</span>
       </div>
-      <div style="color:#1e3a5f;font-size:11px;line-height:1.7;">
+      <div style="color:#1e3a5f;font-size:11px;line-height:1.6;">
         RentEase Services Limited · RC-9513604<br/>
         Aba, Abia State, Nigeria<br/>
         renteaseservices.com
@@ -241,7 +175,7 @@ const FIREBASE_CONFIG = {
 };
 
 // PORTAL: Replace with your actual RentEase WhatsApp number (234 + number without leading 0)
-const WHATSAPP_NUMBER = "2349055732557";
+const WHATSAPP_NUMBER = "2348000000000"; // ← UPDATE THIS
 
 const FS_COLLECTION = "renteasetracker";
 const FS_DOC        = "appdata";
@@ -459,98 +393,14 @@ function renderPortal(c, fin){
       </div>`;
   }).join("");
 
-  // WhatsApp — general contact
+  // WhatsApp
   const msg = encodeURIComponent(
     `Hi RentEase, I'm ${c.name}. I'd like to inquire about my rent plan. My next payment of ${fmt(fin.perP)} is due ${fmtDate(nextDueDate)}.`
   );
   document.getElementById("wa-link").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-
-  // "I've Paid" — pre-written payment notification to RentEase
-  const pp = Number(c.periodsPaid)||0;
-  const paidMsg = encodeURIComponent(
-    `Hi RentEase, I'm ${c.name}. I've just made my Period ${pp+1} payment of ${fmt(fin.perP)}. Please confirm receipt. Thank you.`
-  );
-  const ivePaidEl = document.getElementById("ive-paid-link");
-  if(status==="completed"){
-    // Hide "I've Paid" if plan is fully settled
-    ivePaidEl.style.display = "none";
-  } else {
-    ivePaidEl.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${paidMsg}`;
-  }
-
-  // Calendar button — wire onclick
-  document.getElementById("cal-btn").onclick = downloadCalendar;
-
-  // Referral — WhatsApp share (no number = opens contact picker on mobile)
-  const referralMsg = encodeURIComponent(
-    `I use RentEase in Aba to spread my annual rent into monthly payments — and they paid my landlord upfront. If you're struggling with rent, check them out: https://renteaseservices.com`
-  );
-  document.getElementById("referral-link").href =
-    `https://wa.me/?text=${referralMsg}`;
-
-  // Store data globally so calendar download can access it without re-fetching
-  window._renteaseData = {customer: c, fin, schedule};
-
   document.title = `RentEase — ${c.name}'s Rent Plan`;
 
   showPortal();
-}
-
-// ── CALENDAR (.ICS) GENERATOR ──
-// Builds a standard iCalendar file with all upcoming payment dates.
-// Each event includes a 2-day advance reminder so the customer is never caught off guard.
-function generateICS(c, fin, schedule){
-  const upcoming = schedule.filter(r => !r.isPaid);
-  const pad = n => String(n).padStart(2,"0");
-  const toDateStr = d => `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}`;
-
-  const events = upcoming.map(row => {
-    const ds = toDateStr(row.date);
-    // End date = next day (required by iCal all-day spec)
-    const endD = new Date(row.date); endD.setDate(endD.getDate()+1);
-    const uid  = `renteaseperiod${row.period}${c.id}@renteaseservices.com`;
-    return [
-      "BEGIN:VEVENT",
-      `UID:${uid}`,
-      `DTSTART;VALUE=DATE:${ds}`,
-      `DTEND;VALUE=DATE:${toDateStr(endD)}`,
-      `SUMMARY:RentEase Payment – ${fmt(fin.perP)}`,
-      `DESCRIPTION:Period ${row.period} of ${fin.tp} — Pay ${fmt(fin.perP)} to RentEase Services Limited. Contact: wa.me/${WHATSAPP_NUMBER}`,
-      "BEGIN:VALARM",
-      "TRIGGER:-P2D",        // reminder 2 days before
-      "ACTION:DISPLAY",
-      `DESCRIPTION:RentEase payment of ${fmt(fin.perP)} due in 2 days`,
-      "END:VALARM",
-      "END:VEVENT",
-    ].join("\r\n");
-  });
-
-  return [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//RentEase Services Limited//EN",
-    "CALSCALE:GREGORIAN",
-    "METHOD:PUBLISH",
-    ...events,
-    "END:VCALENDAR",
-  ].join("\r\n");
-}
-
-// Called by the "+ Add Dates" button — triggers .ics file download
-function downloadCalendar(){
-  const d = window._renteaseData;
-  if(!d) return;
-  const ics  = generateICS(d.customer, d.fin, d.schedule);
-  const blob = new Blob([ics], {type:"text/calendar;charset=utf-8"});
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement("a");
-  a.href     = url;
-  a.download = `renteaseplan_${(d.customer.name||"plan").replace(/\s+/g,"-").toLowerCase()}.ics`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  document.getElementById("cal-done").style.display = "block";
 }
 
 // ── MAIN ──
