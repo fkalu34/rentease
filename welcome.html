@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RentEase — Welcome Letter</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--green:#1a6b3c;--gold:#b8860b;--ink:#1a1a1a;--muted:#6b7280;--border:#e8e1d6;--bg:#faf7f2;--surface:#fff;}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--ink);min-height:100vh;}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.spinner{width:40px;height:40px;border:3px solid #e8e1d6;border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;}
+#loading{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;}
+#letter-wrap{display:none;padding:24px 16px 60px;animation:fadeUp .6s ease forwards;}
+.letter{max-width:640px;margin:0 auto;background:var(--surface);border-radius:6px;box-shadow:0 8px 48px rgba(0,0,0,.1);overflow:hidden;}
+/* Decorative top band */
+.top-band{height:6px;background:linear-gradient(90deg,var(--green) 0%,var(--gold) 50%,var(--green) 100%);}
+/* Header */
+.letter-head{background:#0a1628;padding:32px 40px 28px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;}
+.logo-block .logo{font-size:28px;font-weight:900;letter-spacing:-.5px;}
+.logo-block .logo .r{color:#22c55e}.logo-block .logo .e{color:#f59e0b}
+.logo-block .reg{color:#2a4060;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;margin-top:4px;}
+.letter-type{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:8px 14px;border-radius:4px;white-space:nowrap;}
+/* Body */
+.letter-body{padding:44px 40px 36px;}
+.date-ref{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;flex-wrap:wrap;gap:8px;}
+.date{color:var(--muted);font-size:12px;font-weight:500;}
+.ref{color:#9ca3af;font-size:10px;letter-spacing:.5px;}
+/* Greeting */
+.greeting{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;line-height:1.3;margin-bottom:28px;color:var(--ink);}
+.greeting .name{color:var(--green);}
+/* Body paragraphs */
+.para{font-size:15px;line-height:1.95;color:#374151;margin-bottom:20px;}
+.para strong{color:var(--ink);font-weight:600;}
+/* Pull quote */
+.pull-quote{border-left:3px solid var(--green);padding:16px 20px;margin:28px 0;background:#f7fbf7;}
+.pull-quote p{font-family:'Playfair Display',serif;font-style:italic;font-size:16px;line-height:1.7;color:var(--green);}
+/* Three pillars */
+.pillars{margin:28px 0;display:flex;flex-direction:column;gap:14px;}
+.pillar{display:flex;align-items:flex-start;gap:14px;}
+.pillar-icon{width:36px;height:36px;border-radius:8px;background:#ecfdf5;border:1.5px solid #bbf7d0;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.pillar-text{font-size:14px;line-height:1.7;color:#374151;}
+.pillar-text strong{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-bottom:2px;text-transform:uppercase;letter-spacing:.5px;}
+/* Signature */
+.sig-block{margin-top:36px;padding-top:28px;border-top:1px solid var(--border);}
+.sig-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:2px;}
+.sig-title{color:var(--muted);font-size:12px;margin-bottom:14px;}
+.sig-contacts{display:flex;gap:16px;flex-wrap:wrap;}
+.sig-contacts a{color:var(--green);font-size:12px;font-weight:600;text-decoration:none;}
+/* Footer */
+.letter-footer{background:#f7f4ef;padding:18px 40px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.footer-text{color:#9ca3af;font-size:10px;line-height:1.7;}
+.footer-site{color:var(--green);font-size:11px;font-weight:700;}
+/* Action bar */
+.actions{max-width:640px;margin:18px auto 0;display:flex;gap:10px;flex-wrap:wrap;}
+.btn{flex:1;min-width:120px;padding:13px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:none;text-align:center;font-family:'DM Sans',sans-serif;}
+.btn-print{background:var(--green);color:#fff;}
+.btn-wa{background:#25D366;color:#fff;}
+.btn-portal{background:#0a1628;color:#22c55e;border:1px solid #22c55e33;}
+@media print{.actions{display:none!important;}body{background:#fff;}.letter{box-shadow:none;border-radius:0;}#letter-wrap{padding:0;}}
+@media(max-width:520px){.letter-head{padding:20px 20px;}.letter-body{padding:28px 20px 24px;}.letter-footer{padding:14px 20px;}.date-ref{flex-direction:column;align-items:flex-start;}}
+</style>
+</head>
+<body>
+<div id="loading">
+  <div>
+    <div style="font-family:'Playfair Display',serif;font-size:28px;margin-bottom:20px;"><span style="color:#1a6b3c">Rent</span><span style="color:#b8860b">Ease</span></div>
+    <div class="spinner"></div>
+    <div style="color:#6b7280;font-size:13px;">Preparing welcome letter…</div>
+  </div>
+</div>
+
+<div id="letter-wrap">
+  <div class="letter">
+    <div class="top-band"></div>
+    <div class="letter-head">
+      <div class="logo-block">
+        <div class="logo"><span class="r">Rent</span><span class="e">Ease</span></div>
+        <div class="reg">Services Limited · RC-9513604</div>
+      </div>
+      <div class="letter-type">Welcome Letter</div>
+    </div>
+
+    <div class="letter-body">
+      <div class="date-ref">
+        <div class="date" id="letter-date"></div>
+        <div class="ref" id="letter-ref"></div>
+      </div>
+
+      <div class="greeting">Dear <span class="name" id="first-name"></span>,<br/>Welcome home. 🏠</div>
+
+      <p class="para" id="para1"></p>
+
+      <div class="pull-quote">
+        <p id="pull-quote-text"></p>
+      </div>
+
+      <p class="para" id="para2"></p>
+
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar-icon">🤝</div>
+          <div class="pillar-text"><strong>We Keep Our Word</strong>Once we make a commitment, we honour it — to you and to your landlord. That is the foundation this company is built on.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🌱</div>
+          <div class="pillar-text"><strong>We Are In Your Corner</strong>If things ever become difficult, do not disappear. Come to us. We would rather find a solution together than lose a member of our community.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🔗</div>
+          <div class="pillar-text"><strong>We Grow Together</strong>Every person we help strengthens this community. When you refer a neighbour, a colleague, a friend — you are extending the same hand of support that was extended to you.</div>
+        </div>
+      </div>
+
+      <p class="para" id="para3"></p>
+
+      <p class="para" id="para4"></p>
+
+      <div class="sig-block">
+        <div class="sig-name">The RentEase Team</div>
+        <div class="sig-title">RentEase Services Limited · Aba, Abia State</div>
+        <div class="sig-contacts">
+          <a href="https://wa.me/2349055732557">💬 WhatsApp Us</a>
+          <a href="https://renteaseservices.com">🌐 renteaseservices.com</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="letter-footer">
+      <div class="footer-text">RentEase Services Limited · RC-9513604<br/>Aba, Abia State, Nigeria</div>
+      <div class="footer-site">renteaseservices.com</div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-print" onclick="window.print()">🖨 Save as PDF</button>
+    <button class="btn btn-wa" id="wa-btn">💬 Send via WhatsApp</button>
+    <button class="btn btn-portal" id="portal-btn">📲 Open Their Portal</button>
+  </div>
+</div>
+
+<script>
+const FIREBASE_CONFIG={apiKey:"AIzaSyD4HcZPLBjI_ciTOO8QHxZEwM_ahxiAWWQ",authDomain:"renteasetracker.firebaseapp.com",projectId:"renteasetracker",storageBucket:"renteasetracker.firebasestorage.app",messagingSenderId:"919408664238",appId:"1:919408664238:web:ded9da1c9be82bba28573f"};
+const WHATSAPP="2349055732557";
+
+function loadScript(src){return new Promise((res,rej)=>{if(document.querySelector(`script[src="${src}"]`)){res();return;}const s=document.createElement("script");s.src=src;s.onload=res;s.onerror=()=>rej(new Error("Failed: "+src));document.head.appendChild(s);});}
+
+function fmtDateLong(d){if(!d)return"—";try{return new Date(d).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});}catch{return"—";}}
+
+function renderLetter(c){
+  const firstName=c.name.split(" ")[0];
+  const today=new Date();
+  const location=c.location||"Aba";
+
+  document.getElementById("letter-date").textContent=
+    today.toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
+  document.getElementById("letter-ref").textContent=`Ref: RE-${c.id?.slice(-6)||"000000"}`;
+  document.getElementById("first-name").textContent=firstName;
+
+  document.getElementById("para1").innerHTML=
+    `On behalf of everyone at RentEase, we want to be the first to say — <strong>congratulations.</strong> Not just for sorting out your rent, but for making a decision that many people in this country never get to make: choosing structure over panic, choosing dignity over scrambling.`;
+
+  document.getElementById("pull-quote-text").textContent=
+    `"Nobody should have to lose sleep over their roof. That is why RentEase exists — and why you are now part of something that is quietly changing how Nigerians relate with their homes."`;
+
+  document.getElementById("para2").innerHTML=
+    `We know what it means to live in <strong>${location}</strong>. We know the pressure of landlords who want everything at once, the embarrassment of falling short, the weight of uncertainty. You chose a different path — and we are honoured to walk it with you.`;
+
+  document.getElementById("para3").innerHTML=
+    `Your personal portal link has been sent separately. Through it, you can check your plan details at any time — your schedule, your progress, everything you need to stay informed and in control. Think of it as your window into your own financial commitment.`;
+
+  document.getElementById("para4").innerHTML=
+    `${firstName}, you are not just a customer. You are a member of a community that RentEase is building one home at a time. We are rooting for you — not just to complete this plan, but to thrive. Welcome aboard. 💚`;
+
+  const portalUrl=`https://renteaseservices.com/portal.html?id=${c.id}`;
+  const waMsg=encodeURIComponent(
+    `Dear ${firstName},\n\nWelcome to RentEase! 🎉\n\nYour rent plan is now active and your landlord payment has been taken care of. We are genuinely glad to have you with us.\n\nHere is your personal portal link — bookmark it and check it anytime:\n${portalUrl}\n\nIf you ever need anything, we are always just a WhatsApp message away.\n\nWarm regards,\nThe RentEase Team\nrenteaseservices.com`
+  );
+  const phone=(c.phone||"").replace(/\D/g,"").replace(/^0/,"");
+  document.getElementById("wa-btn").onclick=()=>
+    window.open(`https://wa.me/234${phone}?text=${waMsg}`,"_blank");
+  document.getElementById("portal-btn").onclick=()=>
+    window.open(portalUrl,"_blank");
+
+  document.title=`RentEase Welcome — ${c.name}`;
+  document.getElementById("loading").style.display="none";
+  document.getElementById("letter-wrap").style.display="block";
+}
+
+(async function(){
+  const params=new URLSearchParams(window.location.search);
+  const customerId=params.get("id");
+  if(!customerId){
+    document.getElementById("loading").innerHTML=`<div style="text-align:center;color:#ef4444;padding:40px;">No customer ID in link.<br/>Open from the tracker Welcome button.</div>`;
+    return;
+  }
+  try{
+    const CDN="https://www.gstatic.com/firebasejs/10.12.2";
+    await loadScript(CDN+"/firebase-app-compat.js");
+    await loadScript(CDN+"/firebase-firestore-compat.js");
+    if(!firebase.apps.length)firebase.initializeApp(FIREBASE_CONFIG);
+    const db=firebase.firestore();
+    const snap=await db.collection("renteasetracker").doc("appdata").get();
+    if(!snap.exists){document.getElementById("loading").innerHTML=`<div style="text-align:center;color:#ef4444;padding:40px;">No data found.</div>`;return;}
+    const c=(snap.data().customers||[]).find(x=>x.id===customerId);
+    if(!c){document.getElementById("loading").innerHTML=`<div style="text-align:center;color:#ef4444;padding:40px;">Customer not found.</div>`;return;}
+    renderLetter(c);
+  }catch(e){
+    document.getElementById("loading").innerHTML=`<div style="text-align:center;color:#ef4444;padding:40px;">Connection failed.<br/>${e.message}</div>`;
+  }
+})();
+</script>
+</body>
+</html>
