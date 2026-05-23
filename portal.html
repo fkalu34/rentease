@@ -281,6 +281,48 @@ body{background:#0a1628;font-family:'Segoe UI',system-ui,sans-serif;color:#e2e8f
       <div style="color:#334155;font-size:10px;text-align:center;margin-top:8px;" id="lbl-paystack-note">You will be redirected to Paystack's secure page. RentEase does not store your card or bank details.</div>
     </div>
 
+    <!-- Bank Transfer Details -->
+    <div style="background:#0f2040;border-radius:14px;padding:18px;border:1px solid #1a2d45;margin-bottom:10px;">
+      <div style="font-weight:800;font-size:14px;margin-bottom:6px;">🏦 Pay by Bank Transfer</div>
+      <div style="color:#4a6080;font-size:13px;line-height:1.6;margin-bottom:14px;">Transfer your contribution directly to any of our accounts below. After payment, tap <strong style="color:#22c55e;">I've Just Made My Payment</strong> to notify us.</div>
+      <!-- Kuda -->
+      <div style="background:#0a1628;border-radius:10px;padding:14px;margin-bottom:10px;border:1px solid #1a3a5f;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:32px;height:32px;border-radius:8px;background:#7c3aed22;border:1px solid #7c3aed44;display:flex;align-items:center;justify-content:center;font-size:14px;">🏦</div>
+            <div>
+              <div style="font-weight:700;font-size:13px;">Kuda Bank</div>
+              <div style="color:#4a6080;font-size:11px;">Mobile Money</div>
+            </div>
+          </div>
+          <button onclick="copyAccount('3003787622','Kuda')" id="copy-kuda"
+            style="background:#7c3aed20;color:#a78bfa;border:1px solid #7c3aed40;border-radius:7px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;">
+            📋 Copy
+          </button>
+        </div>
+        <div style="font-size:22px;font-weight:900;letter-spacing:2px;color:#e2e8f0;margin-bottom:4px;">3003787622</div>
+        <div style="color:#4a6080;font-size:12px;">Rent Ease Services Limited</div>
+      </div>
+      <!-- Moniepoint -->
+      <div style="background:#0a1628;border-radius:10px;padding:14px;border:1px solid #1a3a5f;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:32px;height:32px;border-radius:8px;background:#22c55e22;border:1px solid #22c55e44;display:flex;align-items:center;justify-content:center;font-size:14px;">🏦</div>
+            <div>
+              <div style="font-weight:700;font-size:13px;">Moniepoint MFB</div>
+              <div style="color:#4a6080;font-size:11px;">Microfinance Bank</div>
+            </div>
+          </div>
+          <button onclick="copyAccount('6782165004','Moniepoint')" id="copy-moniepoint"
+            style="background:#22c55e20;color:#22c55e;border:1px solid #22c55e40;border-radius:7px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;">
+            📋 Copy
+          </button>
+        </div>
+        <div style="font-size:22px;font-weight:900;letter-spacing:2px;color:#e2e8f0;margin-bottom:4px;">6782165004</div>
+        <div style="color:#4a6080;font-size:12px;">Rent Ease Services Limited</div>
+      </div>
+    </div>
+
     <!-- WhatsApp contact -->
     <a id="wa-link" href="#" target="_blank"
        style="display:flex;align-items:center;justify-content:center;gap:10px;background:#25D366;color:#fff;border-radius:14px;padding:16px;font-weight:800;font-size:15px;text-decoration:none;margin-bottom:10px;">
@@ -603,7 +645,27 @@ function renderCompletionText(c,fin){
   if(el("comp-referral-wa"))el("comp-referral-wa").href=`https://wa.me/?text=${refMsg}`;
 }
 
-// ── FIREBASE ──
+// ── COPY ACCOUNT NUMBER ──
+function copyAccount(number, bank){
+  const btnId = bank==="Kuda" ? "copy-kuda" : "copy-moniepoint";
+  const btn = document.getElementById(btnId);
+  const feedback = () => {
+    if(btn){ btn.textContent="✓ Copied!"; setTimeout(()=>btn.textContent="📋 Copy", 2500); }
+  };
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(number).then(feedback).catch(()=>{ window.prompt("Copy account number:", number); });
+  } else {
+    try{
+      const t=document.createElement("textarea"); t.value=number;
+      t.style.position="fixed"; t.style.opacity="0";
+      document.body.appendChild(t); t.focus(); t.select();
+      document.execCommand("copy"); document.body.removeChild(t);
+      feedback();
+    }catch(e){ window.prompt("Copy account number:", number); }
+  }
+}
+
+// ── COPY PORTAL LINK ──
 function loadScript(src){return new Promise((res,rej)=>{if(document.querySelector(`script[src="${src}"]`)){res();return;}const s=document.createElement("script");s.src=src;s.onload=res;s.onerror=()=>rej(new Error("Failed: "+src));document.head.appendChild(s);});}
 async function initFirebase(){
   const CDN="https://www.gstatic.com/firebasejs/10.12.2";
